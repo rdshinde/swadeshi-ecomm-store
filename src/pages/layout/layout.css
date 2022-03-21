@@ -1,0 +1,13 @@
+.header-container {
+  background-color: var(--secondary-color);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+@media screen and (max-width: 1080px) {
+    .header-container h1{
+        font-size: var(--scale-lg);
+        text-align: start;
+    }
+
+}

@@ -1,0 +1,9 @@
+.filter-heading,
+.sort-heading {
+  align-items: center;
+  display: flex;
+}
+.filter-heading button,
+.sort-heading button {
+  margin-left: auto;
+}

@@ -1,0 +1,38 @@
+:root {
+  --gray-color: #8f8f8f;
+}
+a:hover {
+  text-decoration: none;
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+.strike {
+  text-decoration: line-through;
+  color: var(--secondary-hover);
+  font-size: var(--scale-md);
+}
+.color-box {
+  display: inline-block;
+  height: var(--scale-md);
+  width: var(--scale-md);
+  transition: all 0.1s ease-in;
+}
+.color-box:hover {
+  transform: scale(1.02);
+}
+.selected {
+  border: 2px solid var(--active-color);
+}
+.text-gray {
+  color: var(--gray-color);
+}
+
+.space-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.wrap-items {
+  flex-wrap: wrap;
+}

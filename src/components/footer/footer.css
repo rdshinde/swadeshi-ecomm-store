@@ -1,0 +1,4 @@
+/* Footer container Styling */
+.footer__links {
+  font-size: var(--scale-lg);
+}

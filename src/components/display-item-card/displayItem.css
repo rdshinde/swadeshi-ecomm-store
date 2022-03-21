@@ -1,0 +1,55 @@
+/* Stling for card component and card-container */
+.card .card__footer .btn {
+  transition: all 0.5s;
+  width: 100%;
+}
+.card__wishlist,
+.card__remove {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 6;
+}
+.rating-simple {
+  max-width: max-content;
+}
+.rating {
+  align-items: center;
+  display: flex;
+}
+.card__wishlist,
+.card__remove {
+  font-size: calc(var(--scale-md) + var(--scale-sm));
+}
+
+.card__wishlist:hover,
+.card__remove:hover {
+  color: var(--warning-color);
+}
+
+.display-card::before {
+  align-items: center;
+  background-color: var(--secondary-color);
+  bottom: 28%;
+  color: var(--gray-color);
+  content: attr(description);
+  display: flex;
+  font-size: var(--scale-lg);
+  font-weight: 500;
+  inset: 0;
+  justify-content: center;
+  opacity: 0.95;
+  padding: var(--scale-lg) var(--scale-md);
+  position: absolute;
+  transform-origin: 0 0;
+  transform: scaleY(0);
+  transition: all 0.7s cubic-bezier(0.165, 0.84, 0.44, 1) 0.5s;
+
+  z-index: 6;
+}
+.display-card:hover::before {
+  transform: scaleY(1);
+}
+.card__img-container {
+  padding: var(--scale-sm) var(--scale-xl);
+}
