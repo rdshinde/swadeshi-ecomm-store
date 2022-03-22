@@ -13,6 +13,7 @@ export const Home = () => {
           <h3 className="m-y-md">
             Shop stunning clothes which are totally made from home grown fabric.
           </h3>
+
           <Link to="/products">
             <button className="hero__btn m-y-lg btn btn-default border-rounded-lg">
               Order Now
