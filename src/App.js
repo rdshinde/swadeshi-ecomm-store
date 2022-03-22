@@ -1,4 +1,3 @@
-// import { Home } from "./pages/home/Home";
 import "./stylesheets/App.css";
 import { Route, Routes } from "react-router-dom";
 import MockAPI from "./mockMan";
