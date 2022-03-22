@@ -22,3 +22,5 @@ const authReducer = (state, { type, payload }) => {
       return { ...state };
   }
 };
+
+export { authReducer };

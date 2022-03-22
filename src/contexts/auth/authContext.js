@@ -1,5 +1,5 @@
 import { createContext, useContext, useReducer } from "react";
-
+import { authReducer } from "./authReducer";
 const initialUserAuthState = {
   userAuthState: {
     isUserLoggedIn: false,
@@ -16,8 +16,7 @@ const AuthContext = createContext(initialUserAuthState);
 
 const useAuth = () => useContext(AuthContext);
 const AuthProvider = ({ children }) => {
-    
-  const [useAuthState, userAuthDispatch] = useReducer(
+  const [userAuthState, userAuthDispatch] = useReducer(
     authReducer,
     initialUserAuthState
   );
