@@ -1,0 +1,5 @@
+.error__text {
+  flex-direction: column;
+  height: 70vh;
+  width: 100%;
+}
