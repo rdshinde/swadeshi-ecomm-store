@@ -1,11 +1,15 @@
 import { React, useState } from "react";
-import { DisplayItem } from "../../components";
+import { DisplayItem, Loader } from "../../components";
 import { Filter } from "../../components/filter/Filter";
+import { useProducts } from "../../contexts/products/productsContext";
 import "./productFilter.css";
 export const ProductFilter = () => {
   const [showFilters, setShowFilters] = useState(false);
+  const { productState, isLoaderLoading, isErrorOccured } = useProducts();
+  const { productsList } = productState;
   return (
     <div className="main gap-md">
+      {isErrorOccured || (isLoaderLoading && <Loader />)}
       <div
         className={`aside-wrapper ${
           !showFilters ? "hide-filter" : "show-filter"
@@ -22,6 +26,7 @@ export const ProductFilter = () => {
             <i className="fa-solid fa-filter"></i> Filters
           </button>
         </div>
+
         <main
           className="main-container p-md"
           onClick={() =>
@@ -31,14 +36,49 @@ export const ProductFilter = () => {
           <div className="text-start">
             <h2 className="search-result m-l-lg text-2 bold-lg text-gray">
               Search Result
-              <span className="text-3 bold-lg"> (20 items)</span>
+              <span className="text-3 bold-lg">
+                ({productsList.length} items)
+              </span>
             </h2>
           </div>
           <div className="cards-container gap-md">
-            <DisplayItem />
-            <DisplayItem />
-            <DisplayItem />
-            <DisplayItem />
+            {productsList.map(
+              ({
+                _id,
+                imgUrl,
+                name,
+                make,
+                description,
+                originalPrice,
+                discountedPrice,
+                rating,
+                totalRatings,
+                isAvailable,
+                isWishlisted,
+                isAddedToCart,
+                availableSize,
+                categoryName,
+              }) => (
+                <DisplayItem
+                  key={_id}
+                  data={{
+                    imgUrl,
+                    name,
+                    make,
+                    description,
+                    originalPrice,
+                    discountedPrice,
+                    rating,
+                    totalRatings,
+                    isAvailable,
+                    isWishlisted,
+                    isAddedToCart,
+                    availableSize,
+                    categoryName,
+                  }}
+                />
+              )
+            )}
           </div>
         </main>
       </div>

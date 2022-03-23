@@ -37,13 +37,14 @@
   justify-content: center;
   position: absolute;
   width: 100%;
+  z-index: 9;
 }
 .loader__overlay::before {
   background-color: var(--secondary-color);
   content: "";
   inset: 0;
   opacity: 0.9;
-  position: absolute;
+  position: fixed;
 }
 @keyframes lds-ellipsis1 {
   0% {
