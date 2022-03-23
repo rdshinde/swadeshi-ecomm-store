@@ -53,3 +53,7 @@
 .card__img-container {
   padding: var(--scale-sm) var(--scale-xl);
 }
+.card__img-container img {
+  height: 420px !important;
+  width: 180px !important;
+}
