@@ -3,7 +3,9 @@ import React from "react";
 import cart from "../../assets/cart.svg";
 import wishlist from "../../assets/wishlist.svg";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../contexts/auth/authContext";
 const Navbar = () => {
+  const { userAuthState, userAuthDispatch } = useAuth();
   return (
     <nav className="header__nav">
       <div className="nav__logo-container">
@@ -29,9 +31,11 @@ const Navbar = () => {
           <Link to="/cart">
             <div className="badge__container">
               <img className="badge__container-img" src={cart} alt="Cart" />
-              <div className="badge badge-top-right border-rounded-full bg-primary text-offwhite bold-xl">
-                5
-              </div>
+              {userAuthState.isUserLoggedIn && (
+                <div className="badge badge-top-right border-rounded-full bg-primary text-offwhite bold-xl">
+                  5
+                </div>
+              )}
             </div>
           </Link>
         </div>
@@ -39,18 +43,29 @@ const Navbar = () => {
           <Link to="/wishlist">
             <div className="badge__container">
               <img className="badge__container-img" src={wishlist} alt="Cart" />
-              <div className="badge badge-top-right border-rounded-full bg-primary text-offwhite bold-xl">
-                5
-              </div>
+              {userAuthState.isUserLoggedIn && (
+                <div className="badge badge-top-right border-rounded-full bg-primary text-offwhite bold-xl">
+                  5
+                </div>
+              )}
             </div>
           </Link>
         </div>
         <div className="nav__icons-login">
-          <Link to="/login">
-            <button className="btn btn-default-outline border-rounded-md">
-              <i className="fas fa-user btn__icon"></i>Login
+          {userAuthState.isUserLoggedIn ? (
+            <button
+              className="btn btn-default-outline border-rounded-md"
+              onClick={() => userAuthDispatch({ type: "LOGOUT" })}
+            >
+              <i className="fas fa-user btn__icon"></i>Logout
             </button>
-          </Link>
+          ) : (
+            <Link to="/login">
+              <button className="btn btn-default-outline border-rounded-md">
+                <i className="fas fa-user btn__icon"></i>Login
+              </button>
+            </Link>
+          )}
         </div>
       </div>
     </nav>
