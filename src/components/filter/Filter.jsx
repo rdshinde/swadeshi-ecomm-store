@@ -4,7 +4,7 @@ import "./filter.css";
 
 export const Filter = () => {
   const { filterState, filterDispatch } = useFilter();
-  const { sortBy, ratingFilter } = filterState;
+  const { sortBy, ratingFilter, category } = filterState;
   return (
     <aside className="aside-container p-sm">
       <section className="aside__section filter-heading m-sm p-sm">
@@ -113,24 +113,56 @@ export const Filter = () => {
       <section className="aside__section price-filter m-sm p-sm">
         <div className="flex-center sort-heading">
           <h3 className="bold-lg text-gray text-4">Categories</h3>
-          <button className="btn btn-link">Clear</button>
+          <button
+            className="btn btn-link"
+            onClick={(e) => {
+              e.stopPropagation();
+              filterDispatch({ type: "FILTER", payload: "CLEAR_CATEGORY" });
+            }}
+          >
+            Clear
+          </button>
         </div>
         <div className="sort-btns">
           <div className="input-group">
             <label hrmlFor="popular">
-              <input id="popular" name="category" type="checkbox" />
+              <input
+                id="popular"
+                name="category"
+                type="radio"
+                onChange={() =>
+                  filterDispatch({ type: "FILTER", payload: "SHOW_MEN" })
+                }
+                checked={category && category === "MEN"}
+              />
               Men
             </label>
           </div>
           <div className="input-group">
             <label hrmlFor="low-to-high">
-              <input id="low-to-high" name="category" type="checkbox" />
+              <input
+                id="low-to-high"
+                name="category"
+                type="radio"
+                onChange={() =>
+                  filterDispatch({ type: "FILTER", payload: "SHOW_WOMEN" })
+                }
+                checked={category && category === "WOMEN"}
+              />
               Women
             </label>
           </div>
           <div className="input-group">
             <label hrmlFor="high-to-low">
-              <input id="high-to-low" name="category" type="checkbox" />
+              <input
+                id="high-to-low"
+                name="category"
+                type="radio"
+                onChange={() =>
+                  filterDispatch({ type: "FILTER", payload: "SHOW_BOYS" })
+                }
+                checked={category && category === "BOY"}
+              />
               Children
             </label>
           </div>

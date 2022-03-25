@@ -16,6 +16,14 @@ const filterReducer = (state, action) => {
         return { ...state, ratingFilter: payload };
       } else if (payload === "CLEAR_RATING_FILTER") {
         return { ...state, ratingFilter: "" };
+      } else if (payload === "SHOW_MEN") {
+        return { ...state, category: "MEN" };
+      } else if (payload === "SHOW_WOMEN") {
+        return { ...state, category: "WOMEN" };
+      } else if (payload === "SHOW_BOYS") {
+        return { ...state, category: "BOYS" };
+      } else if (payload === "CLEAR_CATEGORY") {
+        return { ...state, category: "" };
       } else {
         return { ...state };
       }
