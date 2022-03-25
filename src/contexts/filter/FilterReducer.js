@@ -6,6 +6,16 @@ const filterReducer = (state, action) => {
         return { ...state, showOutOfStock: !state.showOutOfStock };
       } else if (payload === "FAST_DELIVERY") {
         return { ...state, showFastDelivery: !state.showFastDelivery };
+      } else if (payload === "RATING_MORE_THAN_ONE") {
+        return { ...state, ratingFilter: payload };
+      } else if (payload === "RATING_MORE_THAN_TWO") {
+        return { ...state, ratingFilter: payload };
+      } else if (payload === "RATING_MORE_THAN_THREE") {
+        return { ...state, ratingFilter: payload };
+      } else if (payload === "RATING_MORE_THAN_FOUR") {
+        return { ...state, ratingFilter: payload };
+      } else if (payload === "CLEAR_RATING_FILTER") {
+        return { ...state, ratingFilter: "" };
       } else {
         return { ...state };
       }

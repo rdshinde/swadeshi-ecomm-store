@@ -1,7 +1,7 @@
 import { createContext, useContext, useReducer } from "react";
 import { useProducts } from "../products/productsContext";
 import { filterReducer } from "./FilterReducer";
-import { priceSort } from "./filterUtils/priceSort";
+import { priceSort, ratingSort } from "./filterUtils";
 
 const FilterContext = createContext();
 const useFilter = () => useContext(FilterContext);
@@ -12,17 +12,24 @@ const FilterProvider = ({ children }) => {
   const [filterState, filterDispatch] = useReducer(filterReducer, {
     showOutOfStock: false,
     showFastDelivery: false,
+    ratingFilter: "",
     sortBy: "",
     priceValue: null,
     showAll: true,
   });
-//   console.log(filterState);
-  const sortedProducts = priceSort(productsList, filterState.sortBy);
-
-//   console.log(sortedProducts);
+  //   console.log(filterState);
+  let sortedProducts = priceSort(productsList, filterState.sortBy);
+  sortedProducts = ratingSort(sortedProducts, filterState.ratingFilter);
+  //   console.log(sortedProducts);
   return (
     <FilterContext.Provider
-      value={{ filterState, filterDispatch, sortedProducts, isLoaderLoading, isErrorOccured }}
+      value={{
+        filterState,
+        filterDispatch,
+        sortedProducts,
+        isLoaderLoading,
+        isErrorOccured,
+      }}
     >
       {children}
     </FilterContext.Provider>

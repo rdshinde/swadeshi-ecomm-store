@@ -4,7 +4,7 @@ import "./filter.css";
 
 export const Filter = () => {
   const { filterState, filterDispatch } = useFilter();
-  const { sortBy } = filterState;
+  const { sortBy, ratingFilter } = filterState;
   return (
     <aside className="aside-container p-sm">
       <section className="aside__section filter-heading m-sm p-sm">
@@ -17,8 +17,15 @@ export const Filter = () => {
       <section className="aside__section price-filter m-sm p-sm">
         <div className="flex-center sort-heading">
           <h3 className="bold-lg text-gray text-4">Sort By</h3>
-          <button className="btn btn-link" onClick={(e)=>{e.stopPropagation()
-          filterDispatch({type:'CLEAR_SORT'})}}>Clear</button>
+          <button
+            className="btn btn-link"
+            onClick={(e) => {
+              e.stopPropagation();
+              filterDispatch({ type: "CLEAR_SORT" });
+            }}
+          >
+            Clear
+          </button>
         </div>
         <div className="sort-btns">
           <div className="input-group">
@@ -132,29 +139,94 @@ export const Filter = () => {
       <section className="aside__section price-filter m-sm p-sm">
         <div className="flex-center sort-heading">
           <h3 className="bold-lg text-gray text-4">Ratings</h3>
-          <button className="btn btn-link">Clear</button>
+          <button
+            className="btn btn-link"
+            onClick={(e) => {
+              e.stopPropagation();
+              filterDispatch({
+                type: "FILTER",
+                payload: "CLEAR_RATING_FILTER",
+              });
+            }}
+          >
+            Clear
+          </button>
         </div>
         <div className="sort-btns">
           <div className="input-group">
             <label hrmlFor="popular">
-              <input id="popular" name="rating" type="radio" />4 Stars and Above
+              <input
+                id="popular"
+                name="rating"
+                type="radio"
+                onChange={() =>
+                  filterDispatch({
+                    type: "FILTER",
+                    payload: "RATING_MORE_THAN_FOUR",
+                  })
+                }
+                checked={
+                  ratingFilter && ratingFilter === "RATING_MORE_THAN_FOUR"
+                }
+              />
+              4 Stars and Above
             </label>
           </div>
           <div className="input-group">
             <label hrmlFor="popular">
-              <input id="popular" name="rating" type="radio" />3 Stars and Above
+              <input
+                id="popular"
+                name="rating"
+                type="radio"
+                onChange={() =>
+                  filterDispatch({
+                    type: "FILTER",
+                    payload: "RATING_MORE_THAN_THREE",
+                  })
+                }
+                checked={
+                  ratingFilter && ratingFilter === "RATING_MORE_THAN_THREE"
+                }
+              />
+              3 Stars and Above
             </label>
           </div>
           <div className="input-group">
             <label hrmlFor="low-to-high">
-              <input id="low-to-high" name="rating" type="radio" />2 Stars and
-              Above
+              <input
+                id="low-to-high"
+                name="rating"
+                type="radio"
+                onChange={() =>
+                  filterDispatch({
+                    type: "FILTER",
+                    payload: "RATING_MORE_THAN_TWO",
+                  })
+                }
+                checked={
+                  ratingFilter && ratingFilter === "RATING_MORE_THAN_TWO"
+                }
+              />
+              2 Stars and Above
             </label>
           </div>
           <div className="input-group">
             <label hrmlFor="high-to-low">
-              <input id="high-to-low" name="rating" type="radio" />1 Star and
-              Above
+              <input
+                id="high-to-low"
+                name="rating"
+                type="radio"
+                onChange={() =>
+                  filterDispatch({
+                    type: "FILTER",
+                    payload: "RATING_MORE_THAN_ONE",
+                  })
+                }
+                checked={
+                  ratingFilter && ratingFilter === "RATING_MORE_THAN_ONE"
+                }
+              />
+              1 Star and Above
             </label>
           </div>
         </div>
