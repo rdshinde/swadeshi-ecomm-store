@@ -27,7 +27,7 @@ export const LoginForm = () => {
   useEffect(() => {
     const { data, status } = serverResponse;
     if (status === 200) {
-      localStorage.setItem("token", JSON.stringify(data.encodedToken));
+      localStorage.setItem("token", data.encodedToken);
       userAuthDispatch({
         type: "LOGIN",
         payload: {
@@ -37,7 +37,6 @@ export const LoginForm = () => {
       });
       navigate("/");
     }
-    console.log("sideeffect");
   }, [serverResponse]);
   return (
     <div className="login-form m-md p-xl text-center border-rounded-sm">
