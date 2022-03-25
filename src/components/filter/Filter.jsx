@@ -1,6 +1,10 @@
 import React from "react";
+import { useFilter } from "../../contexts/filter/FilterContext";
 import "./filter.css";
+
 export const Filter = () => {
+  const { filterState, filterDispatch } = useFilter();
+  const { sortBy } = filterState;
   return (
     <aside className="aside-container p-sm">
       <section className="aside__section filter-heading m-sm p-sm">
@@ -13,24 +17,49 @@ export const Filter = () => {
       <section className="aside__section price-filter m-sm p-sm">
         <div className="flex-center sort-heading">
           <h3 className="bold-lg text-gray text-4">Sort By</h3>
-          <button className="btn btn-link">Clear</button>
+          <button className="btn btn-link" onClick={(e)=>{e.stopPropagation()
+          filterDispatch({type:'CLEAR_SORT'})}}>Clear</button>
         </div>
         <div className="sort-btns">
           <div className="input-group">
             <label hrmlFor="popular">
-              <input id="popular" name="sort-by" type="radio" />
+              <input
+                id="popular"
+                name="sort-by"
+                type="radio"
+                onChange={() =>
+                  filterDispatch({ type: "SORT", payload: "POPULAR_PRODUCTS" })
+                }
+                checked={sortBy && sortBy === "POPULAR_PRODUCTS"}
+              />
               Popular
             </label>
           </div>
           <div className="input-group">
             <label hrmlFor="low-to-high">
-              <input id="low-to-high" name="sort-by" type="radio" />
+              <input
+                id="low-to-high"
+                name="sort-by"
+                type="radio"
+                onChange={() =>
+                  filterDispatch({ type: "SORT", payload: "LOW_TO_HIGH" })
+                }
+                checked={sortBy && sortBy === "LOW_TO_HIGH"}
+              />
               Price Low to High
             </label>
           </div>
           <div className="input-group">
             <label hrmlFor="high-to-low">
-              <input id="high-to-low" name="sort-by" type="radio" />
+              <input
+                id="high-to-low"
+                name="sort-by"
+                type="radio"
+                onChange={() =>
+                  filterDispatch({ type: "SORT", payload: "HIGH_TO_LOW" })
+                }
+                checked={sortBy && sortBy === "HIGH_TO_LOW"}
+              />
               Price High to Low
             </label>
           </div>

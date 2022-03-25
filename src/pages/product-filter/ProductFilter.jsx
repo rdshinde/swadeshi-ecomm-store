@@ -1,15 +1,14 @@
 import { React, useState } from "react";
 import { DisplayItem, Loader } from "../../components";
 import { Filter } from "../../components/filter/Filter";
-import { useProducts } from "../../contexts/products/productsContext";
+import { useFilter } from "../../contexts/filter/FilterContext";
 import "./productFilter.css";
 export const ProductFilter = () => {
   const [showFilters, setShowFilters] = useState(false);
-  const { productState, isLoaderLoading, isErrorOccured } = useProducts();
-  const { productsList } = productState;
+  const { sortedProducts, isLoaderLoading, isErrorOccured } = useFilter();
   return (
     <div className="main gap-md">
-      {isErrorOccured || (isLoaderLoading && <Loader />)}
+      {(isErrorOccured || isLoaderLoading) && <Loader />}
       <div
         className={`aside-wrapper ${
           !showFilters ? "hide-filter" : "show-filter"
@@ -37,12 +36,12 @@ export const ProductFilter = () => {
             <h2 className="search-result m-l-lg text-2 bold-lg text-gray">
               Search Result
               <span className="text-3 bold-lg">
-                ({productsList.length} items)
+                ({sortedProducts.length} items)
               </span>
             </h2>
           </div>
           <div className="cards-container gap-md">
-            {productsList.map(
+            {sortedProducts.map(
               ({
                 _id,
                 imgUrl,
