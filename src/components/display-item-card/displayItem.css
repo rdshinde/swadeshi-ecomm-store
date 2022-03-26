@@ -36,7 +36,7 @@
   font-size: var(--scale-lg);
   font-weight: 500;
   inset: 0;
-  bottom: 28%;
+  bottom: 30%;
   justify-content: center;
   opacity: 0.95;
   padding: var(--scale-lg) var(--scale-md);
@@ -44,7 +44,6 @@
   transform-origin: 0 0;
   transform: scaleY(0);
   transition: all 0.7s cubic-bezier(0.165, 0.84, 0.44, 1) 0.5s;
-
   z-index: 6;
 }
 .display-card:hover::before {
@@ -56,4 +55,22 @@
 .card__img-container img {
   height: 420px !important;
   width: 180px !important;
+}
+.fast-delivery *:hover {
+  transform: scale(1);
+}
+.out-of-stock::after {
+  position: absolute;
+  inset: 0;
+  background-color: var(--secondary-color);
+  opacity: 0.9;
+  content: "Out Of Stock";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--scale-lg);
+  font-weight: 600;
+  cursor: default;
+  z-index: 7;
+  
 }

@@ -3,6 +3,7 @@ import { DisplayItem, Loader } from "../../components";
 import { Filter } from "../../components/filter/Filter";
 import { useFilter } from "../../contexts/filter/FilterContext";
 import "./productFilter.css";
+import NoItems from "../../assets/NoItems.jpg";
 export const ProductFilter = () => {
   const [showFilters, setShowFilters] = useState(false);
   const { sortedProducts, isLoaderLoading, isErrorOccured } = useFilter();
@@ -40,7 +41,24 @@ export const ProductFilter = () => {
               </span>
             </h2>
           </div>
-          <div className="cards-container gap-md">
+          <div
+            className={`cards-container gap-md ${
+              sortedProducts.length === 0 && "flex-center"
+            }`}
+          >
+            {sortedProducts.length === 0 && (
+              <div className="flex-center">
+                <div>
+                  <img
+                    src={NoItems}
+                    className="img-responsive"
+                    width="1080"
+                    height="1080"
+                    alt="NoItems"
+                  />
+                </div>
+              </div>
+            )}
             {sortedProducts.map(
               ({
                 _id,
@@ -57,6 +75,7 @@ export const ProductFilter = () => {
                 isAddedToCart,
                 availableSize,
                 categoryName,
+                isFastDelivery,
               }) => (
                 <DisplayItem
                   key={_id}
@@ -74,6 +93,7 @@ export const ProductFilter = () => {
                     isAddedToCart,
                     availableSize,
                     categoryName,
+                    isFastDelivery,
                   }}
                 />
               )

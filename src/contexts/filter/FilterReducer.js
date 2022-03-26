@@ -24,6 +24,10 @@ const filterReducer = (state, action) => {
         return { ...state, category: "BOYS" };
       } else if (payload === "CLEAR_CATEGORY") {
         return { ...state, category: "" };
+      } else if (payload === "OUT_OF_STOCK") {
+        return { ...state, showOutOfStock: !state.showOutOfStock };
+      } else if (payload === "FAST_DELIVERY") {
+        return { ...state, showFastDelivery: !state.showFastDelivery };
       } else {
         return { ...state };
       }
