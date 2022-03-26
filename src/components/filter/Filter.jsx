@@ -19,7 +19,18 @@ export const Filter = () => {
         <h2 className="bold-lg text-primary text-3">
           <i className="fa-solid fa-filter"></i> Filters
         </h2>
-        <button className="btn btn-link">Clear Filters</button>
+        <button
+          className="btn btn-link"
+          onClick={(e) => {
+            e.stopPropagation();
+            filterDispatch({
+              type: "FILTER",
+              payload: "CLEAR_ALL_FILTERS",
+            });
+          }}
+        >
+          Clear Filters
+        </button>
       </section>
       <div className="divider-md"></div>
       <section className="aside__section price-filter m-sm p-sm">
@@ -29,7 +40,10 @@ export const Filter = () => {
             className="btn btn-link"
             onClick={(e) => {
               e.stopPropagation();
-              filterDispatch({ type: "CLEAR_SORT" });
+              filterDispatch({
+                type: "FILTER",
+                payload: "CLEAR_SORT",
+              });
             }}
           >
             Clear
@@ -83,7 +97,18 @@ export const Filter = () => {
       <section className="aside__section m-sm p-sm">
         <div className="flex-center sort-heading">
           <h3 className="bold-lg text-gray text-4">Price</h3>
-          <button className="btn btn-link">Clear</button>
+          <button
+            className="btn btn-link"
+            onClick={(e) => {
+              e.stopPropagation();
+              filterDispatch({
+                type: "FILTER",
+                payload: "CLEAR_PRICE_FILTER",
+              });
+            }}
+          >
+            Clear
+          </button>
         </div>
         <div className="sort-btns">
           <div className="input-group spaced-between">
@@ -122,7 +147,18 @@ export const Filter = () => {
       <section className="aside__section price-filter m-sm p-sm">
         <div className="flex-center sort-heading">
           <h3 className="bold-lg text-gray text-4">Delivery</h3>
-          <button className="btn btn-link">Clear</button>
+          <button
+            className="btn btn-link"
+            onClick={(e) => {
+              e.stopPropagation();
+              filterDispatch({
+                type: "FILTER",
+                payload: "CLEAR_DELIVERY_FILTER",
+              });
+            }}
+          >
+            Clear
+          </button>
         </div>
         <div className="sort-btns">
           <div className="input-group">
