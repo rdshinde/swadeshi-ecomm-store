@@ -19,11 +19,14 @@ export const DisplayItem = ({
     isAddedToCart,
     availableSize,
     categoryName,
+    isFastDelivery,
   },
 }) => {
   return (
     <div
-      className="card display-card border-rounded-sm cursor-pointer p-x-md"
+      className={`card display-card border-rounded-sm cursor-pointer p-x-md ${
+        !isAvailable && "out-of-stock"
+      }`}
       description={description}
     >
       <div className="card__wishlist text-gray p-sm">
@@ -39,6 +42,19 @@ export const DisplayItem = ({
         <p className="text-4 bold-xl text-start">{name}</p>
         <Rating rating={{ rating, totalRatings }} />
         <Price price={{ originalPrice, discountedPrice }} />
+        {isFastDelivery ? (
+          <span className="fast-delivery">
+            <i class="fa-solid fa-truck-fast text-5 text-primary">
+              &nbsp; Fast Delivery
+            </i>
+          </span>
+        ) : (
+          <span className="fast-delivery">
+            <i class="fa-solid fa-truck text-5 text-gray">
+              &nbsp;Regular Delivery
+            </i>
+          </span>
+        )}
       </div>
       <div className="card__footer text-center gap-sm">
         <button className="btn btn-default-outline  border-rounded-md">
