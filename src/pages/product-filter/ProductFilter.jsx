@@ -60,41 +60,10 @@ export const ProductFilter = () => {
               </div>
             )}
             {sortedProducts.map(
-              ({
-                _id,
-                imgUrl,
-                name,
-                make,
-                description,
-                originalPrice,
-                discountedPrice,
-                rating,
-                totalRatings,
-                isAvailable,
-                isWishlisted,
-                isAddedToCart,
-                availableSize,
-                categoryName,
-                isFastDelivery,
-              }) => (
+              (item) => (
                 <DisplayItem
-                  key={_id}
-                  data={{
-                    imgUrl,
-                    name,
-                    make,
-                    description,
-                    originalPrice,
-                    discountedPrice,
-                    rating,
-                    totalRatings,
-                    isAvailable,
-                    isWishlisted,
-                    isAddedToCart,
-                    availableSize,
-                    categoryName,
-                    isFastDelivery,
-                  }}
+                  key={item._id}
+                  itemData={item}
                 />
               )
             )}

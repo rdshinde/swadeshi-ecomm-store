@@ -4,8 +4,12 @@ import cart from "../../assets/cart.svg";
 import wishlist from "../../assets/wishlist.svg";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../contexts/auth/authContext";
+import { useCartAndWishlist } from "../../contexts/cart-and-wishlist/cartAndWishlistContext";
+import { priceAndQuantityHandler } from "../../utils/priceAndQuantityHandler";
 const Navbar = () => {
+  const { getTotalQuantity } = priceAndQuantityHandler();
   const { userAuthState, userAuthDispatch } = useAuth();
+  const { cartItems, wishlistItems } = useCartAndWishlist();
   return (
     <nav className="header__nav">
       <div className="nav__logo-container">
@@ -31,11 +35,12 @@ const Navbar = () => {
           <Link to="/cart">
             <div className="badge__container">
               <img className="badge__container-img" src={cart} alt="Cart" />
-              {userAuthState.isUserLoggedIn && (
-                <div className="badge badge-top-right border-rounded-full bg-primary text-offwhite bold-xl">
-                  5
-                </div>
-              )}
+              {userAuthState.isUserLoggedIn &&
+                getTotalQuantity(cartItems) > 0 && (
+                  <div className="badge badge-top-right border-rounded-full bg-primary text-offwhite bold-xl">
+                    {getTotalQuantity(cartItems)}
+                  </div>
+                )}
             </div>
           </Link>
         </div>
@@ -43,9 +48,9 @@ const Navbar = () => {
           <Link to="/wishlist">
             <div className="badge__container">
               <img className="badge__container-img" src={wishlist} alt="Cart" />
-              {userAuthState.isUserLoggedIn && (
+              {userAuthState.isUserLoggedIn && wishlistItems.length > 0 && (
                 <div className="badge badge-top-right border-rounded-full bg-primary text-offwhite bold-xl">
-                  5
+                  {wishlistItems.length}
                 </div>
               )}
             </div>

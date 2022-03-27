@@ -3,38 +3,86 @@ import mensKurta from "../../assets/kurta.png";
 import React from "react";
 import { Rating, Price } from "../ui";
 import { Link } from "react-router-dom";
+import { useCartAndWishlist } from "../../contexts/cart-and-wishlist/cartAndWishlistContext";
+import { Loader } from "../loader/Loader";
+import { cartHandlers } from "./cartHandlers";
+export const CartItem = ({ itemData }) => {
+  const {
+    _id,
+    make,
+    name,
+    availableSize,
+    imgUrl,
+    originalPrice,
+    discountedPrice,
+    rating,
+    totalRatings,
+    isWishlisted,
+    isAddedToCart,
+    isFastDelivery,
+    categoryName,
+    qty,
+  } = itemData;
+  const { isLoaderLoading, cartAndWishlistDispatch } = useCartAndWishlist();
+  const {
+    decrementItemQuantity,
+    incrementItemQuantity,
+    cartItemDeleteHandler,
+    moveToWishlistHandler,
+  } = cartHandlers(cartAndWishlistDispatch);
 
-export const CartItem = () => {
   return (
     <section className="cart__item border-rounded-sm">
+      {isLoaderLoading && <Loader />}
       <div className="cart__item-info flex-center">
         <div className="item__img">
           <Link to="/products/product-details">
-            <img src={mensKurta} height="150px" alt="" />
+            <img src={imgUrl} height="180px" alt={name} />
           </Link>
         </div>
         <div className="item__description m-x-lg">
-          <p className="text-4 text-gray bold-lg">Raymond</p>
-          <p className="text-4 bold-xl p-y-sm">Mens' Kurta</p>
-          <p className="text-4 bold-lg p-b-sm">Size: Small (30cm)</p>
-          <Rating />
-          <Price />
+          <p className="text-4 text-gray bold-lg">{make}</p>
+          <p className="text-4 bold-xl p-y-sm">{name}</p>
+          <p className="text-4 bold-lg p-b-sm">Size: XL</p>
+          <Rating rating={{ rating, totalRatings }} />
+          <Price price={{ originalPrice, discountedPrice }} />
+
+          <button
+            className="btn btn-secondary m-y-md"
+            onClick={(e) => moveToWishlistHandler(e, itemData)}
+          >
+            Move To WishList
+          </button>
         </div>
       </div>
       <div className="cart__item-actions flex-center">
         <div className="item__count">
-          <div className="count__delete bg-secondary p-sm border-rounded-lg">
+          <button
+            className={`count__delete bg-secondary btn border-rounded-lg ${
+              qty <= 1 && "btn-disabled"
+            }`}
+            onClick={(e) => decrementItemQuantity(e, _id)}
+            disabled={qty <= 1}
+          >
             <i className="fa-solid fa-minus"></i>
-          </div>
-          <div className="count p-sm text-4 bold-lg">2</div>
-          <div className="count__add bg-secondary p-sm border-rounded-lg">
+          </button>
+          <div className="count p-sm text-4 bold-lg">{qty}</div>
+          <button
+            className={`count__add bg-secondary btn border-rounded-lg `}
+            onClick={(e) => incrementItemQuantity(e, _id)}
+          >
             <i className="fa-solid fa-plus"></i>
-          </div>
+          </button>
         </div>
-        <div className="item__price text-3 bold-lg m-x-xxl">&#8377;1998</div>
-        <div className="item__delete flex-center m-r-lg">
+        <div className="item__price text-3 bold-lg m-x-xxl">
+          &#8377;{qty * discountedPrice}
+        </div>
+        <button
+          className="item__delete flex-center btn m-r-lg"
+          onClick={(e) => cartItemDeleteHandler(e, _id)}
+        >
           <i className="fa-solid fa-circle-xmark"></i>
-        </div>
+        </button>
       </div>
     </section>
   );
