@@ -8,7 +8,7 @@ import { useCartAndWishlist } from "../../contexts/cart-and-wishlist/cartAndWish
 
 export const ProductFilter = () => {
   const [showFilters, setShowFilters] = useState(false);
-  const { sortedProducts, isErrorOccured } = useFilter();
+  const { sortedProducts} = useFilter();
   const { isLoaderLoading } = useCartAndWishlist();
   return (
     <div className="main gap-md">

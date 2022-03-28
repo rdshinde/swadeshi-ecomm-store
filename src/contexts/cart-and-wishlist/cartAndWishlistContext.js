@@ -32,7 +32,6 @@ const CartAndWishlistProvider = ({ children }) => {
     }
   );
   const { apiURL, apiMethod, postData } = cartAndWishlistState;
-  // console.log(apiURL, apiMethod, postData);
 
   const { serverResponse, isLoaderLoading, isErrorOccured } = useAxios(
     apiURL,
@@ -65,20 +64,6 @@ const CartAndWishlistProvider = ({ children }) => {
     }
     return () => clearTimeout(seTimeOutID);
   }, [isUserLoggedIn]);
-
-  const addToLocalStorage = () => {
-    const localItems =
-      !localStorage.getItem("cartItems") ||
-      JSON.parse(localStorage.getItem("cartItems")).length === 0;
-    if (localItems) {
-      localStorage.setItem("cartItems", JSON.stringify([...cartItems]));
-    }
-  };
-
-  useEffect(() => {
-    addToLocalStorage();
-  });
-
   return (
     <CartAndWishlistContext.Provider
       value={{
