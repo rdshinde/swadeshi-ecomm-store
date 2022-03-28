@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { Rating, Price } from "../ui";
 import { Link } from "react-router-dom";
 import { useCartAndWishlist } from "../../contexts/cart-and-wishlist/cartAndWishlistContext";
+import { findItemInCartAndWishlist } from "../../utils/findItemInCartAndWishlist";
+import { addToHandler } from "../../utils/addToHandler";
 export const DisplayItem = ({ itemData }) => {
   const {
     _id,
@@ -18,17 +20,12 @@ export const DisplayItem = ({ itemData }) => {
     rating,
     totalRatings,
     isAvailable,
-    // isWishlisted,
-    // isAddedToCart,
-    // availableSize,
-    // categoryName,
     isFastDelivery,
   } = itemData;
   const navigate = useNavigate();
   // navigate("/");
   const { userAuthState, userAuthDispatch } = useAuth();
   const { isUserLoggedIn, encodedToken, user } = userAuthState;
-  // const { cart, wishlist } = user;
   const {
     cartItems,
     wishlistItems,
@@ -37,23 +34,17 @@ export const DisplayItem = ({ itemData }) => {
     isLoaderLoading,
     isErrorOccured,
   } = useCartAndWishlist();
-  const AddtoCartHandler = (e, item) => {
-    e.stopPropagation();
-    cartAndWishlistDispatch({
-      type: "ADD_TO_CART",
-      payload: item,
-    });
-  };
-  const addToWishListHandler = (e, item) => {
-    e.stopPropagation();
-    cartAndWishlistDispatch({
-      type: "ADD_TO_WISHLIST",
-      payload: item,
-    });
-  };
-  const isItemWishlisted = (_id) => {
-    return;
-  };
+
+  const { isItemWishlisted, isItemInCart } = findItemInCartAndWishlist(
+    wishlistItems,
+    cartItems
+  );
+  const { addToWishListHandler, AddtoCartHandler } = addToHandler(
+    isUserLoggedIn,
+    cartAndWishlistDispatch,
+    navigate,
+    isItemWishlisted
+  );
   return (
     <div
       className={`card display-card border-rounded-sm cursor-pointer p-x-md ${
@@ -63,7 +54,7 @@ export const DisplayItem = ({ itemData }) => {
     >
       <button
         className={`btn card__wishlist ${
-          isItemWishlisted ? "text-danger" : "text-gray"
+          isItemWishlisted(_id) ? "text-danger" : "text-gray"
         } p-sm`}
         onClick={(e) => addToWishListHandler(e, itemData)}
       >
@@ -94,12 +85,21 @@ export const DisplayItem = ({ itemData }) => {
         )}
       </div>
       <div className="card__footer text-center gap-sm">
-        <button
-          className="btn btn-default-outline  border-rounded-md"
-          onClick={(e) => AddtoCartHandler(e, itemData)}
-        >
-          Add to Cart
-        </button>
+        {isItemInCart(_id) ? (
+          <Link
+            className="btn btn-default-outline  border-rounded-md"
+            to={"/cart"}
+          >
+            Go to Cart
+          </Link>
+        ) : (
+          <button
+            className="btn btn-default-outline  border-rounded-md"
+            onClick={(e) => AddtoCartHandler(e, itemData)}
+          >
+            Add to Cart
+          </button>
+        )}
       </div>
     </div>
   );

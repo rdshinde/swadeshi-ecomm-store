@@ -4,7 +4,7 @@ const cartAndWishlistReducer = (state, { type, payload }) => {
       return {
         ...state,
         apiURL: "",
-        apiMethod: "GET",
+        apiMethod: "",
         postData: {
           products: {},
         },
@@ -32,6 +32,9 @@ const cartAndWishlistReducer = (state, { type, payload }) => {
         ...state,
         apiURL: `/api/user/cart/${payload}`,
         apiMethod: "DELETE",
+        postData: {
+          product: {},
+        },
       };
     case "UPDATE_CART_ITEM_QUANTITY":
       return {
@@ -52,10 +55,10 @@ const cartAndWishlistReducer = (state, { type, payload }) => {
     case "ADD_TO_WISHLIST":
       return {
         ...state,
-        apiURL: `/api/user/wishlist/`,
+        apiURL: `/api/user/wishlist`,
         apiMethod: "POST",
         postData: {
-          product: {...payload},
+          product: { ...payload },
         },
       };
     case "DELETE_FROM_WISHLIST":
@@ -68,7 +71,7 @@ const cartAndWishlistReducer = (state, { type, payload }) => {
         },
       };
     default:
-      break;
+      return { ...state };
   }
 };
 export { cartAndWishlistReducer };

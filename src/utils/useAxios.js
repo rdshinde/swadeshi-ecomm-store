@@ -50,7 +50,7 @@ export const useAxios = (
   };
   useEffect(() => {
     getData();
-  }, [apiURL]);
+  }, [apiURL, postMethodData, method]);
   return {
     isLoaderLoading,
     serverResponse,

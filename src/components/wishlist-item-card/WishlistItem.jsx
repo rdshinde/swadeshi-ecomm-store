@@ -3,6 +3,9 @@ import mensKurta from "../../assets/kurta.png";
 import { Rating, Price } from "../ui";
 import { Link } from "react-router-dom";
 import { useCartAndWishlist } from "../../contexts/cart-and-wishlist/cartAndWishlistContext";
+import { CartItem } from "../cart-item-card/CartItem";
+import { wishListHandler } from "../../utils/wishListHandler";
+import { DeliveryType } from "../delivery-time/DeliveryType";
 export const WishlistItem = ({ itemData }) => {
   const {
     _id,
@@ -20,28 +23,12 @@ export const WishlistItem = ({ itemData }) => {
     categoryName,
     qty,
   } = itemData;
-  const { cartAndWishlistDispatch } = useCartAndWishlist();
-  const moveToCartHandler = (e, item) => {
-    e.stopPropagation();
-    let setTimeoutID = setTimeout(() => {
-      cartAndWishlistDispatch({
-        type: "DELETE_FROM_WISHLIST",
-        payload: item._id,
-      });
-    }, 0);
-    cartAndWishlistDispatch({
-      type: "ADD_TO_CART",
-      payload: item,
-    });
-    return () => clearTimeout(setTimeoutID);
-  };
-  const removeFromWishlistHandler = (e, id) => {
-    e.stopPropagation();
-    cartAndWishlistDispatch({
-      type: "DELETE_FROM_WISHLIST",
-      payload: id,
-    });
-  };
+  const { cartAndWishlistDispatch, cartItems } = useCartAndWishlist();
+  const { removeFromWishlistHandler, moveToCartHandler } = wishListHandler(
+    cartAndWishlistDispatch,
+    cartItems,
+    _id
+  );
   return (
     <div
       className="card border-rounded-sm cursor-pointer p-x-md"
@@ -59,23 +46,11 @@ export const WishlistItem = ({ itemData }) => {
             <img width="180" height="450" src={imgUrl} alt="kurta" />
           </Link>
         </div>
-        <p className="text-4 text-gray bold-lg">Raymond</p>
-        <p className="text-4 bold-xl text-start">Mens' Kurta</p>
+        <p className="text-4 text-gray bold-lg">{make}</p>
+        <p className="text-4 bold-xl text-start">{name}</p>
         <Rating rating={{ rating, totalRatings }} />
         <Price price={{ originalPrice, discountedPrice }} />
-        {isFastDelivery ? (
-          <span className="fast-delivery">
-            <i className="fa-solid fa-truck-fast text-5 text-primary">
-              &nbsp; Fast Delivery
-            </i>
-          </span>
-        ) : (
-          <span className="fast-delivery">
-            <i className="fa-solid fa-truck text-5 text-gray">
-              &nbsp;Regular Delivery
-            </i>
-          </span>
-        )}
+        <DeliveryType isFastDelivery={isFastDelivery} />
       </div>
       <div className="card__footer text-center gap-sm">
         <button

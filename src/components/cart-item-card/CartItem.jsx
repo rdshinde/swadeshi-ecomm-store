@@ -5,7 +5,7 @@ import { Rating, Price } from "../ui";
 import { Link } from "react-router-dom";
 import { useCartAndWishlist } from "../../contexts/cart-and-wishlist/cartAndWishlistContext";
 import { Loader } from "../loader/Loader";
-import { cartHandlers } from "./cartHandlers";
+import { cartHandlers } from "../../utils/cartHandlers";
 export const CartItem = ({ itemData }) => {
   const {
     _id,

@@ -4,7 +4,6 @@ import { useCartAndWishlist } from "../../contexts/cart-and-wishlist/cartAndWish
 
 export const Wishlist = () => {
   const { wishlistItems, isLoaderLoading } = useCartAndWishlist();
-  console.log(wishlistItems);
   return (
     <>
       <div className="wishlist__heading text-center m-y-md">

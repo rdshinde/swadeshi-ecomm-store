@@ -1,6 +1,7 @@
 import { createContext, useContext, useReducer } from "react";
 import { useEffect } from "react";
 import { v4 as uuid } from "uuid";
+import { useCartAndWishlist } from "../cart-and-wishlist/cartAndWishlistContext";
 import { authReducer } from "./authReducer";
 const initialUserAuthState = {
   userAuthState: {
@@ -40,6 +41,16 @@ const AuthProvider = ({ children }) => {
       }
     });
     return () => clearTimeout(setTimeOutId);
+  }, []);
+  const { setCartItems, setWishlistItems } = useCartAndWishlist;
+  useEffect(() => {
+    console.log('getItems')
+    let setTimeOutID;
+    setTimeOutID = setTimeout(() => {
+      setWishlistItems(localStorage.getItem(JSON.parse("wishlistItems")));
+      setCartItems(localStorage.getItem(JSON.parse("cartItems")));
+    });
+    return clearTimeout(setTimeOutID);
   }, []);
   return (
     <AuthContext.Provider value={{ userAuthState, userAuthDispatch }}>
