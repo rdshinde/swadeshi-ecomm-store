@@ -8,7 +8,7 @@ import { useAxios } from "../../utils/useAxios";
 
 export const LoginForm = () => {
   const navigate = useNavigate();
-  const [apiURL, setApiUrl] = useState(null);
+  const [ApiData, setApiData] = useState({ apiURL: "", method: "" });
   const [showPwd, setShowPwd] = useState(false);
   const { userAuthDispatch } = useAuth();
   const [loginCredentials, setLoginCredentials] = useState({
@@ -18,24 +18,34 @@ export const LoginForm = () => {
   const { email, password } = loginCredentials;
   const submitHandler = async (e) => {
     e.preventDefault();
-    setApiUrl("/api/auth/login");
+    setApiData((prev) => ({
+      ...prev,
+      apiURL: "/api/auth/login",
+      method: "POST",
+    }));
   };
-  const { isLoaderLoading, serverResponse } = useAxios(apiURL, "POST", {
-    email: email,
-    password: password,
-  });
+  const { isLoaderLoading, serverResponse } = useAxios(
+    ApiData.apiURL,
+    ApiData.method,
+    {
+      email: email,
+      password: password,
+    }
+  );
   useEffect(() => {
-    const { data, status } = serverResponse;
-    if (status === 200) {
-      localStorage.setItem("token", data.encodedToken);
-      userAuthDispatch({
-        type: "LOGIN",
-        payload: {
-          encodedToken: data.encodedToken,
-          user: { ...data.foundUser },
-        },
-      });
-      navigate("/");
+    if (serverResponse) {
+      const { data, status } = serverResponse;
+      if (status === 200) {
+        localStorage.setItem("token", data.encodedToken);
+        userAuthDispatch({
+          type: "LOGIN",
+          payload: {
+            encodedToken: data.encodedToken,
+            user: { ...data.foundUser },
+          },
+        });
+        navigate("/");
+      }
     }
   }, [serverResponse]);
   return (

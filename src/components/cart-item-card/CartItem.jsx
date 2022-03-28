@@ -17,8 +17,6 @@ export const CartItem = ({ itemData }) => {
     discountedPrice,
     rating,
     totalRatings,
-    isWishlisted,
-    isAddedToCart,
     isFastDelivery,
     categoryName,
     qty,

@@ -1,9 +1,7 @@
 import React from "react";
-import mensKurta from "../../assets/kurta.png";
 import { Rating, Price } from "../ui";
 import { Link } from "react-router-dom";
 import { useCartAndWishlist } from "../../contexts/cart-and-wishlist/cartAndWishlistContext";
-import { CartItem } from "../cart-item-card/CartItem";
 import { wishListHandler } from "../../utils/wishListHandler";
 import { DeliveryType } from "../delivery-time/DeliveryType";
 export const WishlistItem = ({ itemData }) => {
@@ -17,8 +15,6 @@ export const WishlistItem = ({ itemData }) => {
     discountedPrice,
     rating,
     totalRatings,
-    isWishlisted,
-    isAddedToCart,
     isFastDelivery,
     categoryName,
     qty,

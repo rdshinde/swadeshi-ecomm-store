@@ -3,15 +3,13 @@ import "./cart.css";
 import { CartItem } from "../../components";
 import { useAuth } from "../../contexts/auth/authContext";
 import { Link } from "react-router-dom";
-import { useProducts } from "../../contexts/products/productsContext";
 import { useCartAndWishlist } from "../../contexts/cart-and-wishlist/cartAndWishlistContext";
 import { priceAndQuantityHandler } from "../../utils/priceAndQuantityHandler";
 export const Cart = () => {
-  const { userAuthState, userAuthDispatch } = useAuth();
-  const { isUserLoggedIn, encodedToken } = userAuthState;
-  const { productState } = useProducts();
+  const { userAuthState } = useAuth();
+  const { isUserLoggedIn } = userAuthState;
   const { cartItems } = useCartAndWishlist();
-  console.log(cartItems);
+
   const { getTotalQuantity, getTotalPrice, getDiscountedPrice } =
     priceAndQuantityHandler();
   return (
