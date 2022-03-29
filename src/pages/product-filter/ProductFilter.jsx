@@ -4,12 +4,15 @@ import { Filter } from "../../components/filter/Filter";
 import { useFilter } from "../../contexts/filter/FilterContext";
 import "./productFilter.css";
 import NoItems from "../../assets/NoItems.jpg";
+import { useCartAndWishlist } from "../../contexts/cart-and-wishlist/cartAndWishlistContext";
+
 export const ProductFilter = () => {
   const [showFilters, setShowFilters] = useState(false);
-  const { sortedProducts, isLoaderLoading, isErrorOccured } = useFilter();
+  const { sortedProducts} = useFilter();
+  const { isLoaderLoading } = useCartAndWishlist();
   return (
     <div className="main gap-md">
-      {(isErrorOccured || isLoaderLoading) && <Loader />}
+      {isLoaderLoading && <Loader />}
       <div
         className={`aside-wrapper ${
           !showFilters ? "hide-filter" : "show-filter"
@@ -59,45 +62,9 @@ export const ProductFilter = () => {
                 </div>
               </div>
             )}
-            {sortedProducts.map(
-              ({
-                _id,
-                imgUrl,
-                name,
-                make,
-                description,
-                originalPrice,
-                discountedPrice,
-                rating,
-                totalRatings,
-                isAvailable,
-                isWishlisted,
-                isAddedToCart,
-                availableSize,
-                categoryName,
-                isFastDelivery,
-              }) => (
-                <DisplayItem
-                  key={_id}
-                  data={{
-                    imgUrl,
-                    name,
-                    make,
-                    description,
-                    originalPrice,
-                    discountedPrice,
-                    rating,
-                    totalRatings,
-                    isAvailable,
-                    isWishlisted,
-                    isAddedToCart,
-                    availableSize,
-                    categoryName,
-                    isFastDelivery,
-                  }}
-                />
-              )
-            )}
+            {sortedProducts.map((item) => (
+              <DisplayItem key={item._id} itemData={item} />
+            ))}
           </div>
         </main>
       </div>
