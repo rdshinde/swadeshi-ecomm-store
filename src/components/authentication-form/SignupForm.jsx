@@ -1,31 +1,39 @@
 import { React, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { PasswordInput } from "../password-input/PasswordInput";
-import { useAxios } from "../../utils/useAxios";
 import { Loader } from "../loader/Loader";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/auth/authContext";
 export const SignupForm = () => {
+  const navigate = useNavigate();
   const [signupCredentials, setSignupCredentials] = useState({
     email: "",
     password: "",
     firstName: "",
     lastName: "",
   });
-  const [apiURL, setApiUrl] = useState(null);
+
   const pwdChangeHandler = (pwd) => {
     setSignupCredentials((prev) => ({ ...prev, password: pwd }));
   };
-  const submitHandler = async (e) => {
-    e.preventDefault();
-    setApiUrl("api/auth/signup");
-  };
+  const { serverResponse, isLoaderLoading, signupHandler } = useAuth();
 
-  const { isLoaderLoading, serverResponse } = useAxios(apiURL, "POST", {
-    ...signupCredentials,
-  });
+  const submitHandler = (e) => {
+    e.preventDefault();
+    signupHandler(signupCredentials);
+    setSignupCredentials((prev) => ({
+      ...prev,
+      email: "",
+      password: "",
+      firstName: "",
+      lastName: "",
+    }));
+  };
   useEffect(() => {
     if (serverResponse) {
       serverResponse.status === 201 &&
         localStorage.setItem("token", serverResponse.data.encodedToken);
+      navigate("/products");
     }
   }, [serverResponse]);
   return (

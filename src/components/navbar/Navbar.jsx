@@ -8,7 +8,7 @@ import { useCartAndWishlist } from "../../contexts/cart-and-wishlist/cartAndWish
 import { priceAndQuantityHandler } from "../../utils/priceAndQuantityHandler";
 const Navbar = () => {
   const { getTotalQuantity } = priceAndQuantityHandler();
-  const { userAuthState, userAuthDispatch } = useAuth();
+  const { userAuthState, logoutHandler } = useAuth();
   const { cartItems, wishlistItems } = useCartAndWishlist();
   return (
     <nav className="header__nav">
@@ -60,7 +60,7 @@ const Navbar = () => {
           {userAuthState.isUserLoggedIn ? (
             <button
               className="btn btn-default-outline border-rounded-md"
-              onClick={() => userAuthDispatch({ type: "LOGOUT" })}
+              onClick={() => logoutHandler()}
             >
               <i className="fas fa-user btn__icon"></i>Logout
             </button>

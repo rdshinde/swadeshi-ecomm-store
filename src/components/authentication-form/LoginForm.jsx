@@ -4,34 +4,23 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../../contexts/auth/authContext";
 import { useNavigate } from "react-router-dom";
 import { Loader } from "../loader/Loader";
-import { useAxios } from "../../utils/useAxios";
 
 export const LoginForm = () => {
   const navigate = useNavigate();
-  const [ApiData, setApiData] = useState({ apiURL: "", method: "" });
   const [showPwd, setShowPwd] = useState(false);
-  const { userAuthDispatch } = useAuth();
+  const { userAuthDispatch, loginHandler, serverResponse, isLoaderLoading } =
+    useAuth();
   const [loginCredentials, setLoginCredentials] = useState({
     email: "",
     password: "",
   });
-  const { email, password } = loginCredentials;
-  const submitHandler = async (e) => {
+
+  const submitHandler = (e) => {
     e.preventDefault();
-    setApiData((prev) => ({
-      ...prev,
-      apiURL: "/api/auth/login",
-      method: "POST",
-    }));
+    loginHandler(loginCredentials);
+    setLoginCredentials((prev) => ({ ...prev, email: "", password: "" }));
   };
-  const { isLoaderLoading, serverResponse } = useAxios(
-    ApiData.apiURL,
-    ApiData.method,
-    {
-      email: email,
-      password: password,
-    }
-  );
+
   useEffect(() => {
     if (serverResponse) {
       const { data, status } = serverResponse;
@@ -48,6 +37,7 @@ export const LoginForm = () => {
       }
     }
   }, [serverResponse]);
+  
   return (
     <div className="login-form m-md p-xl text-center border-rounded-sm">
       {isLoaderLoading && <Loader />}
