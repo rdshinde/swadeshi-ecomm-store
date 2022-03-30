@@ -90,7 +90,10 @@ export const ProductDetails = ({ itemData }) => {
               Go to Wishlist
             </Link>
           ) : (
-            <button className="btn btn-danger-outline m-r-md">
+            <button
+              className="btn btn-danger-outline m-r-md"
+              onClick={(e) => addToWishListHandler(e, itemData)}
+            >
               Add to Wishlist
             </button>
           )}
