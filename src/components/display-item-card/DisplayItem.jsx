@@ -23,7 +23,6 @@ export const DisplayItem = ({ itemData }) => {
     isFastDelivery,
   } = itemData;
   const navigate = useNavigate();
-  // navigate("/");
   const { userAuthState, userAuthDispatch } = useAuth();
   const { isUserLoggedIn, encodedToken, user } = userAuthState;
   const {
@@ -62,7 +61,7 @@ export const DisplayItem = ({ itemData }) => {
       </button>
       <div className="card__body m-b-md">
         <div className="card__img-container flex-center">
-          <Link to="/products/product-details">
+          <Link to={`/products/details`} state={{ ...itemData }}>
             <img width="180" height="420" src={imgUrl} alt="kurta" />
           </Link>
         </div>
