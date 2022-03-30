@@ -33,7 +33,7 @@ export const SignupForm = () => {
     if (serverResponse) {
       serverResponse.status === 201 &&
         localStorage.setItem("token", serverResponse.data.encodedToken);
-      navigate("/products");
+      navigate("/login");
     }
   }, [serverResponse]);
   return (
@@ -50,6 +50,7 @@ export const SignupForm = () => {
           <input
             type="text"
             id="first-name"
+            value={signupCredentials.firstName}
             onChange={(e) =>
               setSignupCredentials((prev) => ({
                 ...prev,
@@ -67,6 +68,7 @@ export const SignupForm = () => {
           <input
             type="text"
             id="last-name"
+            value={signupCredentials.lastName}
             onChange={(e) =>
               setSignupCredentials((prev) => ({
                 ...prev,
@@ -84,6 +86,7 @@ export const SignupForm = () => {
           <input
             type="email"
             id="email"
+            value={signupCredentials.email}
             onChange={(e) =>
               setSignupCredentials((prev) => ({
                 ...prev,
@@ -94,7 +97,12 @@ export const SignupForm = () => {
           />
         </div>
 
-        <PasswordInput data={{ getPassword: pwdChangeHandler }} />
+        <PasswordInput
+          data={{
+            getPassword: pwdChangeHandler,
+            value: signupCredentials.password,
+          }}
+        />
         <div className="input-group text-center">
           <button
             type="submit"

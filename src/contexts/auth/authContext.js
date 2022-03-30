@@ -12,10 +12,10 @@ const initialUserAuthState = {
 };
 const defaultUser = {
   _id: uuid(),
-  firstName: "rishikesh",
-  lastName: "shinde",
-  email: "ab@mail.com",
-  password: "rd",
+  firstName: "Rishikesh",
+  lastName: "Shinde",
+  email: "test@mail.com",
+  password: "Test@123",
 };
 const AuthContext = createContext(initialUserAuthState);
 

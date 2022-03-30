@@ -37,7 +37,7 @@ export const LoginForm = () => {
       }
     }
   }, [serverResponse]);
-  
+
   return (
     <div className="login-form m-md p-xl text-center border-rounded-sm">
       {isLoaderLoading && <Loader />}
@@ -48,6 +48,7 @@ export const LoginForm = () => {
           <input
             type="email"
             id="email-id"
+            value={loginCredentials.email}
             onChange={(e) =>
               setLoginCredentials((prev) => ({
                 ...prev,
@@ -68,6 +69,7 @@ export const LoginForm = () => {
               type={`${showPwd ? "text" : "password"}`}
               id="confirm-password"
               required
+              value={loginCredentials.password}
               onChange={(e) =>
                 setLoginCredentials((prev) => ({
                   ...prev,
@@ -95,7 +97,18 @@ export const LoginForm = () => {
           </button>
         </div>
         <div className="text-center">
-          <div className="btn btn-link">Use Guest Credentials</div>
+          <div
+            className="btn btn-link"
+            onClick={(e) => {
+              e.stopPropagation();
+              setLoginCredentials({
+                email: "test@mail.com",
+                password: "Test@123",
+              });
+            }}
+          >
+            Use Guest Credentials
+          </div>
           <div>
             <span className="bold-lg text-gray">Not Registered?</span>
             <Link className="btn btn-link" to="/signup">
