@@ -38,7 +38,7 @@ export const WishlistItem = ({ itemData }) => {
       </button>
       <div className="card__body m-b-md">
         <div className="card__img-container flex-center">
-          <Link to="/products/product-details">
+          <Link to={`/products/details`} state={{ ...itemData }}>
             <img width="180" height="450" src={imgUrl} alt="kurta" />
           </Link>
         </div>

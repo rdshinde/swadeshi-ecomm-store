@@ -51,7 +51,7 @@ export const Filter = () => {
         </div>
         <div className="sort-btns">
           <div className="input-group">
-            <label hrmlFor="popular">
+            <label htmlFor="popular">
               <input
                 id="popular"
                 name="sort-by"
@@ -65,7 +65,7 @@ export const Filter = () => {
             </label>
           </div>
           <div className="input-group">
-            <label hrmlFor="low-to-high">
+            <label htmlFor="low-to-high">
               <input
                 id="low-to-high"
                 name="sort-by"
@@ -79,7 +79,7 @@ export const Filter = () => {
             </label>
           </div>
           <div className="input-group">
-            <label hrmlFor="high-to-low">
+            <label htmlFor="high-to-low">
               <input
                 id="high-to-low"
                 name="sort-by"
@@ -162,7 +162,7 @@ export const Filter = () => {
         </div>
         <div className="sort-btns">
           <div className="input-group">
-            <label hrmlFor="out-of-stock">
+            <label htmlFor="out-of-stock">
               <input
                 id="out-of-stock"
                 name="out-of-stock"
@@ -176,7 +176,7 @@ export const Filter = () => {
             </label>
           </div>
           <div className="input-group">
-            <label hrmlFor="fast-delivery">
+            <label htmlFor="fast-delivery">
               <input
                 id="fast-delivery"
                 name="fast-delivery"
@@ -205,48 +205,31 @@ export const Filter = () => {
           </button>
         </div>
         <div className="sort-btns">
-          <div className="input-group">
-            <label hrmlFor="popular">
-              <input
-                id="popular"
-                name="category"
-                type="radio"
-                onChange={() =>
-                  filterDispatch({ type: "FILTER", payload: "SHOW_MEN" })
-                }
-                checked={category && category === "MEN"}
-              />
-              Men
-            </label>
-          </div>
-          <div className="input-group">
-            <label hrmlFor="low-to-high">
-              <input
-                id="low-to-high"
-                name="category"
-                type="radio"
-                onChange={() =>
-                  filterDispatch({ type: "FILTER", payload: "SHOW_WOMEN" })
-                }
-                checked={category && category === "WOMEN"}
-              />
-              Women
-            </label>
-          </div>
-          <div className="input-group">
-            <label hrmlFor="high-to-low">
-              <input
-                id="high-to-low"
-                name="category"
-                type="radio"
-                onChange={() =>
-                  filterDispatch({ type: "FILTER", payload: "SHOW_BOYS" })
-                }
-                checked={category && category === "BOYS"}
-              />
-              Children
-            </label>
-          </div>
+          {[
+            { displayName: "Men", categoryName: "MEN" },
+            { displayName: "Women", categoryName: "WOMEN" },
+            { displayName: "Boys", categoryName: "BOYS" },
+          ].map(({ displayName, categoryName }) => {
+            return (
+              <div className="input-group">
+                <label htmlFor="popular">
+                  <input
+                    id="popular"
+                    name="category"
+                    type="radio"
+                    onChange={() =>
+                      filterDispatch({
+                        type: "FILTER",
+                        payload: `SHOW_${categoryName}`,
+                      })
+                    }
+                    checked={category && category === categoryName}
+                  />
+                  {displayName}
+                </label>
+              </div>
+            );
+          })}
         </div>
       </section>
       <section className="aside__section price-filter m-sm p-sm">
@@ -266,82 +249,35 @@ export const Filter = () => {
           </button>
         </div>
         <div className="sort-btns">
-          <div className="input-group">
-            <label hrmlFor="popular">
-              <input
-                id="popular"
-                name="rating"
-                type="radio"
-                onChange={() =>
-                  filterDispatch({
-                    type: "FILTER",
-                    payload: "RATING_MORE_THAN_FOUR",
-                  })
-                }
-                checked={
-                  ratingFilter && ratingFilter === "RATING_MORE_THAN_FOUR"
-                }
-              />
-              4 Stars and Above
-            </label>
-          </div>
-          <div className="input-group">
-            <label hrmlFor="popular">
-              <input
-                id="popular"
-                name="rating"
-                type="radio"
-                onChange={() =>
-                  filterDispatch({
-                    type: "FILTER",
-                    payload: "RATING_MORE_THAN_THREE",
-                  })
-                }
-                checked={
-                  ratingFilter && ratingFilter === "RATING_MORE_THAN_THREE"
-                }
-              />
-              3 Stars and Above
-            </label>
-          </div>
-          <div className="input-group">
-            <label hrmlFor="low-to-high">
-              <input
-                id="low-to-high"
-                name="rating"
-                type="radio"
-                onChange={() =>
-                  filterDispatch({
-                    type: "FILTER",
-                    payload: "RATING_MORE_THAN_TWO",
-                  })
-                }
-                checked={
-                  ratingFilter && ratingFilter === "RATING_MORE_THAN_TWO"
-                }
-              />
-              2 Stars and Above
-            </label>
-          </div>
-          <div className="input-group">
-            <label hrmlFor="high-to-low">
-              <input
-                id="high-to-low"
-                name="rating"
-                type="radio"
-                onChange={() =>
-                  filterDispatch({
-                    type: "FILTER",
-                    payload: "RATING_MORE_THAN_ONE",
-                  })
-                }
-                checked={
-                  ratingFilter && ratingFilter === "RATING_MORE_THAN_ONE"
-                }
-              />
-              1 Star and Above
-            </label>
-          </div>
+          {[
+            { ratingNum: 1, rating: "ONE" },
+            { ratingNum: 2, rating: "TWO" },
+            { ratingNum: 3, rating: "THREE" },
+            { ratingNum: 4, rating: "FOUR" },
+          ].map(({ ratingNum, rating }) => {
+            return (
+              <div className="input-group">
+                <label htmlFor="popular">
+                  <input
+                    id="popular"
+                    name="rating"
+                    type="radio"
+                    onChange={() =>
+                      filterDispatch({
+                        type: "FILTER",
+                        payload: `RATING_MORE_THAN_${rating}`,
+                      })
+                    }
+                    checked={
+                      ratingFilter &&
+                      ratingFilter === `RATING_MORE_THAN_${rating}`
+                    }
+                  />
+                  {ratingNum} Stars and Above
+                </label>
+              </div>
+            );
+          })}
         </div>
       </section>
     </aside>

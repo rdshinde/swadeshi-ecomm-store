@@ -85,6 +85,18 @@ export const Cart = () => {
           </div>
         </div>
       )}
+      {cartItems.length === 0 && (
+        <div className="text-center">
+          <h3>Your Cart is empty.</h3>
+          <div className="m-xl">
+            <Link to={"/products"}>
+              <button className="btn btn-default-outline border-rounded-lg">
+                Go to Products
+              </button>
+            </Link>
+          </div>
+        </div>
+      )}
     </>
   );
 };

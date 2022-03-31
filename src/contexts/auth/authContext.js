@@ -1,7 +1,7 @@
 import { createContext, useContext, useReducer } from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
-import { useCartAndWishlist } from "../cart-and-wishlist/cartAndWishlistContext";
+import { useAxios } from "../../utils/useAxios";
 import { authReducer } from "./authReducer";
 const initialUserAuthState = {
   userAuthState: {
@@ -12,19 +12,26 @@ const initialUserAuthState = {
 };
 const defaultUser = {
   _id: uuid(),
-  firstName: "rishikesh",
-  lastName: "shinde",
-  email: "ab@mail.com",
-  password: "rd",
+  firstName: "Rishikesh",
+  lastName: "Shinde",
+  email: "test@mail.com",
+  password: "Test@123",
 };
 const AuthContext = createContext(initialUserAuthState);
 
 const useAuth = () => useContext(AuthContext);
+
 const AuthProvider = ({ children }) => {
   const [userAuthState, userAuthDispatch] = useReducer(
     authReducer,
     initialUserAuthState
   );
+  const [apiData, setApiData] = useState({
+    apiURL: "",
+    method: "",
+    apiPostData: {},
+  });
+
   useEffect(() => {
     let setTimeOutId;
     setTimeOutId = setTimeout(() => {
@@ -42,18 +49,44 @@ const AuthProvider = ({ children }) => {
     });
     return () => clearTimeout(setTimeOutId);
   }, []);
-  const { setCartItems, setWishlistItems } = useCartAndWishlist;
-  useEffect(() => {
-    console.log('getItems')
-    let setTimeOutID;
-    setTimeOutID = setTimeout(() => {
-      setWishlistItems(localStorage.getItem(JSON.parse("wishlistItems")));
-      setCartItems(localStorage.getItem(JSON.parse("cartItems")));
-    });
-    return clearTimeout(setTimeOutID);
-  }, []);
+  const { isLoaderLoading, serverResponse } = useAxios(
+    apiData.apiURL,
+    apiData.method,
+    apiData.apiPostData
+  );
+  const signupHandler = (signupCredentials) => {
+    setApiData((prev) => ({
+      ...prev,
+      apiURL: "api/auth/signup",
+      method: "POST",
+      apiPostData: { ...prev, ...signupCredentials },
+    }));
+  };
+  const loginHandler = (loginCredentials) => {
+    setApiData((prev) => ({
+      ...prev,
+      apiURL: "api/auth/login",
+      method: "POST",
+      apiPostData: { ...prev, ...loginCredentials },
+    }));
+  };
+  const logoutHandler = () => {
+    userAuthDispatch({ type: "LOGOUT" });
+    localStorage.clear("token");
+  };
+
   return (
-    <AuthContext.Provider value={{ userAuthState, userAuthDispatch }}>
+    <AuthContext.Provider
+      value={{
+        userAuthState,
+        userAuthDispatch,
+        isLoaderLoading,
+        serverResponse,
+        signupHandler,
+        loginHandler,
+        logoutHandler,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

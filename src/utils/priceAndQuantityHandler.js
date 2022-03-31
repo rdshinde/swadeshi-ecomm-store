@@ -1,12 +1,12 @@
 export const priceAndQuantityHandler = () => {
   const getTotalPrice = (cartItems) => {
     return cartItems.reduce((acc, curr) => {
-      return (acc = acc + Number(curr.originalPrice));
+      return (acc = acc + Number(curr.originalPrice * curr.qty));
     }, 0);
   };
   const getDiscountedPrice = (cartItems) => {
     return cartItems.reduce((acc, curr) => {
-      return (acc = acc + Number(curr.discountedPrice));
+      return (acc = acc + Number(curr.discountedPrice * curr.qty));
     }, 0);
   };
   const getTotalQuantity = (cartItems) => {

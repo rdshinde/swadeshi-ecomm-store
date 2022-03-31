@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export const PasswordInput = ({data:{getPassword}}) => {
+export const PasswordInput = ({ data: { getPassword, value } }) => {
   const [passwordState, setPasswordState] = useState({
     isMatching: false,
     pwd: { initialPwd: null, confirmedPwd: null },
@@ -31,6 +31,7 @@ export const PasswordInput = ({data:{getPassword}}) => {
           <input
             type={`${showPwd ? "text" : "password"}`}
             id="password"
+            value={value}
             required
             onChange={(e) =>
               setPasswordState((prev) => {
@@ -55,6 +56,7 @@ export const PasswordInput = ({data:{getPassword}}) => {
           <input
             type={`${showPwd ? "text" : "password"}`}
             id="confirm-password"
+            value={value}
             required
             onChange={(e) =>
               setPasswordState((prev) => {

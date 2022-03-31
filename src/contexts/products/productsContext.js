@@ -30,9 +30,15 @@ const ProductsProvider = ({ children }) => {
     });
   }, [serverResponse]);
 
+  
   return (
     <ProductContext.Provider
-      value={{ productState, productDispatch, isLoaderLoading, isErrorOccured }}
+      value={{
+        productState,
+        productDispatch,
+        isLoaderLoading,
+        isErrorOccured,
+      }}
     >
       {children}
     </ProductContext.Provider>

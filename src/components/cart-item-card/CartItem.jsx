@@ -34,7 +34,7 @@ export const CartItem = ({ itemData }) => {
       {isLoaderLoading && <Loader />}
       <div className="cart__item-info flex-center">
         <div className="item__img">
-          <Link to="/products/product-details">
+          <Link to={`/products/details`} state={{ ...itemData }}>
             <img src={imgUrl} height="180px" alt={name} />
           </Link>
         </div>
