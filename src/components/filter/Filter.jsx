@@ -51,7 +51,7 @@ export const Filter = () => {
         </div>
         <div className="sort-btns">
           <div className="input-group">
-            <label hrmlFor="popular">
+            <label htmlFor="popular">
               <input
                 id="popular"
                 name="sort-by"
@@ -65,7 +65,7 @@ export const Filter = () => {
             </label>
           </div>
           <div className="input-group">
-            <label hrmlFor="low-to-high">
+            <label htmlFor="low-to-high">
               <input
                 id="low-to-high"
                 name="sort-by"
@@ -79,7 +79,7 @@ export const Filter = () => {
             </label>
           </div>
           <div className="input-group">
-            <label hrmlFor="high-to-low">
+            <label htmlFor="high-to-low">
               <input
                 id="high-to-low"
                 name="sort-by"
@@ -162,7 +162,7 @@ export const Filter = () => {
         </div>
         <div className="sort-btns">
           <div className="input-group">
-            <label hrmlFor="out-of-stock">
+            <label htmlFor="out-of-stock">
               <input
                 id="out-of-stock"
                 name="out-of-stock"
@@ -176,7 +176,7 @@ export const Filter = () => {
             </label>
           </div>
           <div className="input-group">
-            <label hrmlFor="fast-delivery">
+            <label htmlFor="fast-delivery">
               <input
                 id="fast-delivery"
                 name="fast-delivery"
@@ -212,7 +212,7 @@ export const Filter = () => {
           ].map(({ displayName, categoryName }) => {
             return (
               <div className="input-group">
-                <label hrmlFor="popular">
+                <label htmlFor="popular">
                   <input
                     id="popular"
                     name="category"
@@ -257,7 +257,7 @@ export const Filter = () => {
           ].map(({ ratingNum, rating }) => {
             return (
               <div className="input-group">
-                <label hrmlFor="popular">
+                <label htmlFor="popular">
                   <input
                     id="popular"
                     name="rating"
