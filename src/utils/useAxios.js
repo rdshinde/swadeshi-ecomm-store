@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import { Toast } from "./toast";
 import { useEffect, useState } from "react";
 
 export const useAxios = (
@@ -43,7 +43,7 @@ export const useAxios = (
       setServerResponse(serverResponse);
     } catch (error) {
       seErrorState(true);
-      console.log(error);
+      Toast({ type: "error", msg: `${error} Something went wrong.` });
     } finally {
       setLoadingState(false);
     }

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../../contexts/auth/authContext";
 import { useNavigate } from "react-router-dom";
 import { Loader } from "../loader/Loader";
-
+import { Toast } from "../../utils";
 export const LoginForm = () => {
   const navigate = useNavigate();
   const [showPwd, setShowPwd] = useState(false);
@@ -34,6 +34,7 @@ export const LoginForm = () => {
           },
         });
         navigate("/");
+        Toast({ type: "success", msg: "Login Successful!" });
       }
     }
   }, [serverResponse]);

@@ -4,6 +4,7 @@ import { PasswordInput } from "../password-input/PasswordInput";
 import { Loader } from "../loader/Loader";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/auth/authContext";
+import { Toast } from "../../utils";
 export const SignupForm = () => {
   const navigate = useNavigate();
   const [signupCredentials, setSignupCredentials] = useState({
@@ -34,6 +35,7 @@ export const SignupForm = () => {
       serverResponse.status === 201 &&
         localStorage.setItem("token", serverResponse.data.encodedToken);
       navigate("/login");
+      Toast({ type: "success", msg: "Account Created Successfully!" });
     }
   }, [serverResponse]);
   return (

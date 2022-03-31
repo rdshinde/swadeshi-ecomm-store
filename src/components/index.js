@@ -9,3 +9,4 @@ export { LoginForm } from "./authentication-form/LoginForm";
 export { SignupForm } from "./authentication-form/SignupForm";
 export { ProductDetails } from "./product-details/ProductDetails";
 export { Loader } from "./loader/Loader";
+export { DeliveryType } from "./delivery-time/DeliveryType";
