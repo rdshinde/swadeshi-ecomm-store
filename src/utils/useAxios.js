@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 export const useAxios = (
   apiURL,
-  method = "GET",
+  method = "",
   postMethodData,
   encodedToken
 ) => {
