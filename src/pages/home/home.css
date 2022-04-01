@@ -9,10 +9,10 @@
   width: 100%;
 }
 .hero__text::before {
+  background: url("../../assets/heroBg.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  background: url("../../assets/heroBg.png");
   content: "";
   inset: 0;
   opacity: 0.4;

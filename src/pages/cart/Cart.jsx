@@ -66,9 +66,12 @@ export const Cart = () => {
                 <span className="text-3 bold-lg text-dark">
                   Total Amount: &#8377;{getDiscountedPrice(cartItems)}
                 </span>
-                <button className="btn btn-default border-rounded-lg">
+                <Link
+                  to={"/"}
+                  className="btn btn-default border-rounded-lg"
+                >
                   Place Order
-                </button>
+                </Link>
               </div>
             </div>
           )}
@@ -85,7 +88,7 @@ export const Cart = () => {
           </div>
         </div>
       )}
-      {cartItems.length === 0 && (
+      {isUserLoggedIn && cartItems.length === 0 && (
         <div className="text-center">
           <h3>Your Cart is empty.</h3>
           <div className="m-xl">

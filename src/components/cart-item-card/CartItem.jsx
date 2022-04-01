@@ -1,17 +1,16 @@
 import "./cartItem.css";
-import mensKurta from "../../assets/kurta.png";
 import React from "react";
 import { Rating, Price } from "../ui";
 import { Link } from "react-router-dom";
 import { useCartAndWishlist } from "../../contexts/cart-and-wishlist/cartAndWishlistContext";
 import { Loader } from "../loader/Loader";
 import { cartHandlers } from "../../utils/cartHandlers";
+import { DeliveryType } from "../delivery-time/DeliveryType";
 export const CartItem = ({ itemData }) => {
   const {
     _id,
     make,
     name,
-    availableSize,
     imgUrl,
     originalPrice,
     discountedPrice,
@@ -44,7 +43,6 @@ export const CartItem = ({ itemData }) => {
           <p className="text-4 bold-lg p-b-sm">Size: XL</p>
           <Rating rating={{ rating, totalRatings }} />
           <Price price={{ originalPrice, discountedPrice }} />
-
           <button
             className="btn btn-secondary m-y-md"
             onClick={(e) => moveToWishlistHandler(e, itemData)}

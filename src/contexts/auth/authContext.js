@@ -2,7 +2,6 @@ import { createContext, useContext, useReducer } from "react";
 import { useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
 import { useAxios } from "../../utils/useAxios";
-import axios from "axios";
 import { authReducer } from "./authReducer";
 const initialUserAuthState = {
   userAuthState: {
@@ -33,29 +32,6 @@ const AuthProvider = ({ children }) => {
     apiPostData: {},
   });
 
-  // const [apiResponse, setApiResponse] = useState({
-  //   isLoaderLoading: false,
-  //   serverResponse: {},
-  // });
-  // const { isLoaderLoading, serverResponse } = apiResponse;
-  useEffect(() => {
-    let setTimeOutId;
-    setTimeOutId = setTimeout(() => {
-      const encodedTokenTemp = localStorage.getItem("token");
-      if (encodedTokenTemp) {
-        userAuthDispatch({
-          type: "LOGIN",
-          payload: {
-            isUserLoggedIn: true,
-            encodedToken: encodedTokenTemp,
-            user: { ...defaultUser },
-          },
-        });
-      }
-    });
-    return () => clearTimeout(setTimeOutId);
-  }, []);
-
   const { isLoaderLoading, serverResponse } = useAxios(
     apiData.apiURL,
     apiData.method,
@@ -82,26 +58,23 @@ const AuthProvider = ({ children }) => {
     userAuthDispatch({ type: "LOGOUT" });
     localStorage.clear("token");
   };
-  // useEffect(() => {
-  //   const getData = (async () => {
-  //     setApiResponse((prev) => ({ ...prev, isLoaderLoading: true }));
-  //     try {
-  //       console.log(apiData);
-  //       const serverRes = await axios.post(apiData.apiURL, apiData.apiPostData);
-  //       setApiResponse((prev) => ({
-  //         ...prev,
-  //         isLoaderLoading: false,
-  //         serverResponse: { ...serverRes },
-  //       }));
-  //     } catch (error) {
-  //       console.log(error);
-  //     } finally {
-  //       setApiResponse((prev) => ({ ...prev, isLoaderLoading: false }));
-  //     }
-  //   })();
-  // }, [apiData]);
-
-  
+  useEffect(() => {
+    let setTimeOutId;
+    setTimeOutId = setTimeout(() => {
+      const encodedTokenTemp = localStorage.getItem("token");
+      if (encodedTokenTemp) {
+        userAuthDispatch({
+          type: "LOGIN",
+          payload: {
+            isUserLoggedIn: true,
+            encodedToken: encodedTokenTemp,
+            user: { ...defaultUser },
+          },
+        });
+      }
+    });
+    return () => clearTimeout(setTimeOutId);
+  }, []);
   return (
     <AuthContext.Provider
       value={{

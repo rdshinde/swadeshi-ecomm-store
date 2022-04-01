@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import "./productDetails.css";
 import { Price, Rating } from "..";
 import ImageZoom from "react-image-zooom";
@@ -24,17 +24,11 @@ export const ProductDetails = ({ itemData }) => {
     isAvailable,
     isFastDelivery,
   } = itemData;
-
-  const { userAuthState, userAuthDispatch } = useAuth();
-  const { isUserLoggedIn, encodedToken, user } = userAuthState;
-  const {
-    cartItems,
-    wishlistItems,
-    cartAndWishlistDispatch,
-    cartAndWishlistState,
-    isLoaderLoading,
-    isErrorOccured,
-  } = useCartAndWishlist();
+  const [size, setSize] = useState("");
+  const { userAuthState } = useAuth();
+  const { isUserLoggedIn } = userAuthState;
+  const { cartItems, wishlistItems, cartAndWishlistDispatch } =
+    useCartAndWishlist();
 
   const { isItemWishlisted, isItemInCart } = findItemInCartAndWishlist(
     wishlistItems,

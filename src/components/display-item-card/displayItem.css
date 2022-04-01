@@ -35,7 +35,9 @@
   display: flex;
   font-size: var(--scale-lg);
   font-weight: 500;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
   bottom: 30%;
   justify-content: center;
   opacity: 0.95;
@@ -72,5 +74,4 @@
   font-weight: 600;
   cursor: default;
   z-index: 7;
-  
 }
