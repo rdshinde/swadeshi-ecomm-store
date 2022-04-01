@@ -5,12 +5,12 @@ export const addToHandler = (
   navigate,
   isItemWishlisted
 ) => {
-  const AddtoCartHandler = (e, item) => {
+  const AddtoCartHandler = (e, item, productSize) => {
     e.stopPropagation();
     if (isUserLoggedIn) {
       cartAndWishlistDispatch({
         type: "ADD_TO_CART",
-        payload: { ...item },
+        payload: { ...item, selectedSize: productSize },
       });
       Toast({ type: "success", msg: `${item.name} added to cart.` });
     } else {
