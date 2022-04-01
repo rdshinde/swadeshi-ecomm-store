@@ -37,6 +37,7 @@ export const useAxios = (
               authorization: encodedToken,
             },
           });
+          break;
         default:
           break;
       }
