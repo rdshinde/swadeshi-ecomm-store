@@ -49,6 +49,7 @@ const AuthProvider = ({ children }) => {
     });
     return () => clearTimeout(setTimeOutId);
   }, []);
+
   const { isLoaderLoading, serverResponse } = useAxios(
     apiData.apiURL,
     apiData.method,
