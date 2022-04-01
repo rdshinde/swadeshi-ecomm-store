@@ -35,6 +35,7 @@ export const SignupForm = () => {
       serverResponse.status === 201 &&
         localStorage.setItem("token", serverResponse.data.encodedToken);
       navigate("/login");
+      console.log('signup')
       Toast({ type: "success", msg: "Account Created Successfully!" });
     }
   }, [serverResponse]);

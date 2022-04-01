@@ -33,11 +33,11 @@ const AuthProvider = ({ children }) => {
     apiPostData: {},
   });
 
-  const [apiResponse, setApiResponse] = useState({
-    isLoaderLoading: false,
-    serverResponse: {},
-  });
-  const { isLoaderLoading, serverResponse } = apiResponse;
+  // const [apiResponse, setApiResponse] = useState({
+  //   isLoaderLoading: false,
+  //   serverResponse: {},
+  // });
+  // const { isLoaderLoading, serverResponse } = apiResponse;
   useEffect(() => {
     let setTimeOutId;
     setTimeOutId = setTimeout(() => {
@@ -56,11 +56,11 @@ const AuthProvider = ({ children }) => {
     return () => clearTimeout(setTimeOutId);
   }, []);
 
-  // const { isLoaderLoading, serverResponse } = useAxios(
-  //   apiData.apiURL,
-  //   apiData.method,
-  //   apiData.apiPostData
-  // );
+  const { isLoaderLoading, serverResponse } = useAxios(
+    apiData.apiURL,
+    apiData.method,
+    apiData.apiPostData
+  );
 
   const signupHandler = (signupCredentials) => {
     setApiData((prev) => ({
@@ -82,24 +82,25 @@ const AuthProvider = ({ children }) => {
     userAuthDispatch({ type: "LOGOUT" });
     localStorage.clear("token");
   };
-  useEffect(() => {
-    const getData = (async () => {
-      setApiResponse((prev) => ({ ...prev, isLoaderLoading: true }));
-      try {
-        console.log(apiData);
-        const serverRes = await axios.post(apiData.apiURL, apiData.apiPostData);
-        setApiResponse((prev) => ({
-          ...prev,
-          isLoaderLoading: false,
-          serverResponse: { ...serverRes },
-        }));
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setApiResponse((prev) => ({ ...prev, isLoaderLoading: false }));
-      }
-    })();
-  }, [apiData]);
+  // useEffect(() => {
+  //   const getData = (async () => {
+  //     setApiResponse((prev) => ({ ...prev, isLoaderLoading: true }));
+  //     try {
+  //       console.log(apiData);
+  //       const serverRes = await axios.post(apiData.apiURL, apiData.apiPostData);
+  //       setApiResponse((prev) => ({
+  //         ...prev,
+  //         isLoaderLoading: false,
+  //         serverResponse: { ...serverRes },
+  //       }));
+  //     } catch (error) {
+  //       console.log(error);
+  //     } finally {
+  //       setApiResponse((prev) => ({ ...prev, isLoaderLoading: false }));
+  //     }
+  //   })();
+  // }, [apiData]);
+
   return (
     <AuthContext.Provider
       value={{
