@@ -12,7 +12,6 @@ import {
   Layout,
   PageNotFound,
 } from "./pages";
-
 function App() {
   return (
     <div className="App">
@@ -20,10 +19,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<ProductFilter />} />
-          <Route
-            path="/products/details"
-            element={<ProductDetailsPage />}
-          />
+          <Route path="/products/details" element={<ProductDetailsPage />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/login" element={<LoginPage />} />

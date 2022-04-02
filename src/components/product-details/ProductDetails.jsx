@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import "./productDetails.css";
 import { Price, Rating } from "..";
 import ImageZoom from "react-image-zooom";
@@ -24,17 +24,11 @@ export const ProductDetails = ({ itemData }) => {
     isAvailable,
     isFastDelivery,
   } = itemData;
-
-  const { userAuthState, userAuthDispatch } = useAuth();
-  const { isUserLoggedIn, encodedToken, user } = userAuthState;
-  const {
-    cartItems,
-    wishlistItems,
-    cartAndWishlistDispatch,
-    cartAndWishlistState,
-    isLoaderLoading,
-    isErrorOccured,
-  } = useCartAndWishlist();
+  const [productSize, setProductSize] = useState();
+  const { userAuthState } = useAuth();
+  const { isUserLoggedIn } = userAuthState;
+  const { cartItems, wishlistItems, cartAndWishlistDispatch } =
+    useCartAndWishlist();
 
   const { isItemWishlisted, isItemInCart } = findItemInCartAndWishlist(
     wishlistItems,
@@ -46,6 +40,9 @@ export const ProductDetails = ({ itemData }) => {
     navigate,
     isItemWishlisted
   );
+  const sizeHandler = (size) => {
+    setProductSize(size);
+  };
   return (
     <section className="product__details-wrapper border-rounded-sm">
       <div className="product__img flex-center">
@@ -76,9 +73,16 @@ export const ProductDetails = ({ itemData }) => {
         <DeliveryType isFastDelivery={isFastDelivery} />
         <div className="m-y-md"></div>
         <div className="size-chart gap-md">
-          <span className="text-3 bold-lg m-r-md">Size Chart: </span>
+          <span className="text-3 bold-lg m-r-md">Select Size: </span>
           {["S", "L", "XL", "XXL", "3XL"].map((size) => (
-            <button className="btn btn-secondary-outline">{size}</button>
+            <button
+              className={`btn btn${
+                productSize === size ? "-primary" : "-secondary-outline"
+              }`}
+              onClick={() => sizeHandler(size)}
+            >
+              {size}
+            </button>
           ))}
         </div>
         <div className="action-buttons m-y-lg m-md">
@@ -104,7 +108,7 @@ export const ProductDetails = ({ itemData }) => {
           ) : (
             <button
               className="btn btn-danger border-rounded-md"
-              onClick={(e) => AddtoCartHandler(e, itemData)}
+              onClick={(e) => AddtoCartHandler(e, itemData, productSize)}
             >
               Add to Cart
             </button>

@@ -1,18 +1,21 @@
+import { Toast } from "./toast";
 export const addToHandler = (
   isUserLoggedIn,
   cartAndWishlistDispatch,
   navigate,
   isItemWishlisted
 ) => {
-  const AddtoCartHandler = (e, item) => {
+  const AddtoCartHandler = (e, item, productSize) => {
     e.stopPropagation();
     if (isUserLoggedIn) {
       cartAndWishlistDispatch({
         type: "ADD_TO_CART",
-        payload: { ...item },
+        payload: { ...item, selectedSize: productSize },
       });
+      Toast({ type: "success", msg: `${item.name} added to cart.` });
     } else {
       navigate("/login");
+      Toast({ type: "error", msg: "Please login to use Cart functionality." });
     }
   };
   const addToWishListHandler = (e, item) => {
@@ -28,9 +31,14 @@ export const addToHandler = (
           type: "ADD_TO_WISHLIST",
           payload: item,
         });
+        Toast({ type: "success", msg: `${item.name} added to wishlist.` });
       }
     } else {
       navigate("/login");
+      Toast({
+        type: "error",
+        msg: "Please login to use Wishlist functionality.",
+      });
     }
   };
   return { addToWishListHandler, AddtoCartHandler };

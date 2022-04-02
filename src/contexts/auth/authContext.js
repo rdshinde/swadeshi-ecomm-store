@@ -32,28 +32,12 @@ const AuthProvider = ({ children }) => {
     apiPostData: {},
   });
 
-  useEffect(() => {
-    let setTimeOutId;
-    setTimeOutId = setTimeout(() => {
-      const encodedTokenTemp = localStorage.getItem("token");
-      if (encodedTokenTemp) {
-        userAuthDispatch({
-          type: "LOGIN",
-          payload: {
-            isUserLoggedIn: true,
-            encodedToken: encodedTokenTemp,
-            user: { ...defaultUser },
-          },
-        });
-      }
-    });
-    return () => clearTimeout(setTimeOutId);
-  }, []);
   const { isLoaderLoading, serverResponse } = useAxios(
     apiData.apiURL,
     apiData.method,
     apiData.apiPostData
   );
+
   const signupHandler = (signupCredentials) => {
     setApiData((prev) => ({
       ...prev,
@@ -74,7 +58,23 @@ const AuthProvider = ({ children }) => {
     userAuthDispatch({ type: "LOGOUT" });
     localStorage.clear("token");
   };
-
+  useEffect(() => {
+    let setTimeOutId;
+    setTimeOutId = setTimeout(() => {
+      const encodedTokenTemp = localStorage.getItem("token");
+      if (encodedTokenTemp) {
+        userAuthDispatch({
+          type: "LOGIN",
+          payload: {
+            isUserLoggedIn: true,
+            encodedToken: encodedTokenTemp,
+            user: { ...defaultUser },
+          },
+        });
+      }
+    });
+    return () => clearTimeout(setTimeOutId);
+  }, []);
   return (
     <AuthContext.Provider
       value={{

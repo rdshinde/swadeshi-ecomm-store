@@ -1,3 +1,4 @@
+import { Toast } from "./toast";
 export const wishListHandler = (cartAndWishlistDispatch, cartItems, _id) => {
   const moveToCartHandler = (e, item) => {
     e.stopPropagation();
@@ -21,7 +22,7 @@ export const wishListHandler = (cartAndWishlistDispatch, cartItems, _id) => {
         payload: item,
       });
     }
-
+    Toast({ type: "success", msg: `${item.name} moved to cart.` });
     return () => clearTimeout(setTimeoutID);
   };
   const removeFromWishlistHandler = (e, id) => {
@@ -30,6 +31,7 @@ export const wishListHandler = (cartAndWishlistDispatch, cartItems, _id) => {
       type: "DELETE_FROM_WISHLIST",
       payload: id,
     });
+    Toast({ type: "success", msg: `Item removed from wishlist.` });
   };
   return { removeFromWishlistHandler, moveToCartHandler };
 };
