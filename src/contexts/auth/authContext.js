@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
 import { useAxios } from "../../utils/useAxios";
 import { authReducer } from "./authReducer";
+import { Toast } from "../../utils/toast";
 const initialUserAuthState = {
   userAuthState: {
     isUserLoggedIn: false,
@@ -57,6 +58,10 @@ const AuthProvider = ({ children }) => {
   const logoutHandler = () => {
     userAuthDispatch({ type: "LOGOUT" });
     localStorage.clear("token");
+    Toast({
+      type: "success",
+      msg: `${userAuthState.user.firstName} logged out successfully!`,
+    });
   };
   useEffect(() => {
     let setTimeOutId;
