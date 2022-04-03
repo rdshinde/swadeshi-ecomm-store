@@ -1,10 +1,8 @@
 import "./navbar.css";
-import React from "react";
 import cart from "../../assets/cart.svg";
 import wishlist from "../../assets/wishlist.svg";
-import { Link } from "react-router-dom";
-import { useAuth } from "../../contexts/auth/authContext";
-import { useCartAndWishlist } from "../../contexts/cart-and-wishlist/cartAndWishlistContext";
+import { NavLink } from "react-router-dom";
+import { useAuth, useCartAndWishlist } from "../../contexts";
 import { priceAndQuantityHandler } from "../../utils/priceAndQuantityHandler";
 const Navbar = () => {
   const { getTotalQuantity } = priceAndQuantityHandler();
@@ -13,11 +11,11 @@ const Navbar = () => {
   return (
     <nav className="header__nav">
       <div className="nav__logo-container">
-        <Link to="/" className="text-default">
+        <NavLink to="/" className="text-default">
           <i className="fa-solid fa-store"></i>&nbsp;
           <h1>Swadeshi</h1>
           <span className="bold-lg">.com</span>
-        </Link>
+        </NavLink>
       </div>
       <div className="nav__searchbar">
         <input
@@ -32,7 +30,7 @@ const Navbar = () => {
       </div>
       <div className="nav__icons nav__icons__footer text-default">
         <div className="nav__icons-cart">
-          <Link to="/cart">
+          <NavLink to="/cart">
             <div className="badge__container">
               <img className="badge__container-img" src={cart} alt="Cart" />
               {userAuthState.isUserLoggedIn &&
@@ -42,10 +40,10 @@ const Navbar = () => {
                   </div>
                 )}
             </div>
-          </Link>
+          </NavLink>
         </div>
         <div className="nav__icons-wishlist">
-          <Link to="/wishlist">
+          <NavLink to="/wishlist">
             <div className="badge__container">
               <img className="badge__container-img" src={wishlist} alt="Cart" />
               {userAuthState.isUserLoggedIn && wishlistItems.length > 0 && (
@@ -54,7 +52,7 @@ const Navbar = () => {
                 </div>
               )}
             </div>
-          </Link>
+          </NavLink>
         </div>
         <div className="nav__icons-login">
           {userAuthState.isUserLoggedIn ? (
@@ -65,11 +63,11 @@ const Navbar = () => {
               <i className="fas fa-user btn__icon"></i>Logout
             </button>
           ) : (
-            <Link to="/login">
+            <NavLink to="/login">
               <button className="btn btn-default-outline border-rounded-md">
                 <i className="fas fa-user btn__icon"></i>Login
               </button>
-            </Link>
+            </NavLink>
           )}
         </div>
       </div>

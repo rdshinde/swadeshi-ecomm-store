@@ -1,5 +1,3 @@
-import React from "react";
-
 export const Price = ({ price: { originalPrice, discountedPrice } }) => {
   const getDiscountPercentage = (originalPrice, discountedPrice) => {
     return Math.round(

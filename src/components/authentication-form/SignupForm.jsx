@@ -1,9 +1,8 @@
 import { React, useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { PasswordInput } from "../password-input/PasswordInput";
+import { Link, useNavigate } from "react-router-dom";
+import { PasswordInput } from "../index";
 import { Loader } from "../loader/Loader";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../contexts/auth/authContext";
+import { useAuth } from "../../contexts";
 import { Toast } from "../../utils";
 export const SignupForm = () => {
   const navigate = useNavigate();
@@ -35,7 +34,6 @@ export const SignupForm = () => {
       serverResponse.status === 201 &&
         localStorage.setItem("token", serverResponse.data.encodedToken);
       navigate("/login");
-      console.log('signup')
       Toast({ type: "success", msg: "Account Created Successfully!" });
     }
   }, [serverResponse]);
@@ -103,7 +101,6 @@ export const SignupForm = () => {
         <PasswordInput
           data={{
             getPassword: pwdChangeHandler,
-            value: signupCredentials.password,
           }}
         />
         <div className="input-group text-center">

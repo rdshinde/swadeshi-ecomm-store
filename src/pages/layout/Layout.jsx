@@ -1,6 +1,5 @@
-import React from "react";
-import { Footer, Navbar } from "../../components";
 import "./layout.css";
+import { Footer, Navbar } from "../../components";
 import { ToastContainer } from "react-toastify";
 export const Layout = ({ children }) => {
   return (

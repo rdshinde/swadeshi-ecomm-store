@@ -1,7 +1,5 @@
-import React from "react";
-import { useFilter } from "../../contexts/filter/FilterContext";
-// import { priceFilter } from "../../contexts/filter/filterUtils";
 import "./filter.css";
+import { useFilter } from "../../contexts";
 
 export const Filter = () => {
   const { filterState, filterDispatch } = useFilter();

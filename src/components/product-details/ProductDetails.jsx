@@ -1,27 +1,21 @@
-import { useState } from "react";
 import "./productDetails.css";
-import { Price, Rating } from "..";
 import ImageZoom from "react-image-zooom";
-import { DeliveryType } from "../delivery-time/DeliveryType";
-import { useCartAndWishlist } from "../../contexts/cart-and-wishlist/cartAndWishlistContext";
-import { findItemInCartAndWishlist } from "../../utils/findItemInCartAndWishlist";
-import { Link } from "react-router-dom";
-import { addToHandler } from "../../utils/addToHandler";
-import { useAuth } from "../../contexts/auth/authContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Price, Rating, DeliveryType } from "../index";
+import { findItemInCartAndWishlist, addToHandler } from "../../utils";
+import { useAuth, useCartAndWishlist } from "../../contexts";
 export const ProductDetails = ({ itemData }) => {
   const navigate = useNavigate();
   const {
     _id,
     imgUrl,
-    name,
     make,
     description,
     originalPrice,
     discountedPrice,
     rating,
     totalRatings,
-    isAvailable,
     isFastDelivery,
   } = itemData;
   const [productSize, setProductSize] = useState();

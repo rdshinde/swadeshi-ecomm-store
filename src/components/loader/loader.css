@@ -44,7 +44,7 @@
   content: "";
   inset: 0;
   opacity: 0.9;
-  position: fixed;
+  position: absolute;
 }
 @keyframes lds-ellipsis1 {
   0% {

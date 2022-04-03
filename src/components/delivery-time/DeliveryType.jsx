@@ -1,5 +1,3 @@
-import React from "react";
-
 export const DeliveryType = ({ isFastDelivery }) => {
   return (
     <div>

@@ -1,10 +1,8 @@
 import "./cartItem.css";
-import React from "react";
 import { Rating, Price } from "../ui";
 import { Link } from "react-router-dom";
-import { useCartAndWishlist } from "../../contexts/cart-and-wishlist/cartAndWishlistContext";
-import { Loader } from "../loader/Loader";
-import { cartHandlers } from "../../utils/cartHandlers";
+import { useCartAndWishlist } from "../../contexts";
+import { cartHandlers } from "../../utils";
 export const CartItem = ({ itemData }) => {
   const {
     _id,
@@ -15,12 +13,10 @@ export const CartItem = ({ itemData }) => {
     discountedPrice,
     rating,
     totalRatings,
-    isFastDelivery,
-    categoryName,
     qty,
     selectedSize,
   } = itemData;
-  const { isLoaderLoading, cartAndWishlistDispatch } = useCartAndWishlist();
+  const { cartAndWishlistDispatch } = useCartAndWishlist();
   const {
     decrementItemQuantity,
     incrementItemQuantity,
@@ -30,14 +26,13 @@ export const CartItem = ({ itemData }) => {
 
   return (
     <section className="cart__item border-rounded-sm">
-      {isLoaderLoading && <Loader />}
       <div className="cart__item-info flex-center">
         <div className="item__img">
           <Link to={`/products/details`} state={{ ...itemData }}>
             <img src={imgUrl} height="180px" alt={name} />
           </Link>
         </div>
-        <div className="item__description m-x-lg">
+        <div className="item__description m-x-lg ">
           <p className="text-4 text-gray bold-lg">{make}</p>
           <p className="text-4 bold-xl p-y-sm">{name}</p>
           <p className="text-4 bold-lg p-b-sm">Size: {selectedSize}</p>

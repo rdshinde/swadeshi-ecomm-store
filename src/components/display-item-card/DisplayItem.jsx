@@ -1,13 +1,9 @@
 import "./displayItem.css";
 import "../../stylesheets/utility.css";
-import React from "react";
-import { useAuth } from "../../contexts/auth/authContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Rating, Price } from "../ui";
-import { Link } from "react-router-dom";
-import { useCartAndWishlist } from "../../contexts/cart-and-wishlist/cartAndWishlistContext";
-import { findItemInCartAndWishlist } from "../../utils/findItemInCartAndWishlist";
-import { addToHandler } from "../../utils/addToHandler";
+import { useAuth, useCartAndWishlist } from "../../contexts";
+import { addToHandler, findItemInCartAndWishlist } from "../../utils";
 export const DisplayItem = ({ itemData }) => {
   const {
     _id,
@@ -23,16 +19,10 @@ export const DisplayItem = ({ itemData }) => {
     isFastDelivery,
   } = itemData;
   const navigate = useNavigate();
-  const { userAuthState, userAuthDispatch } = useAuth();
-  const { isUserLoggedIn, encodedToken, user } = userAuthState;
-  const {
-    cartItems,
-    wishlistItems,
-    cartAndWishlistDispatch,
-    cartAndWishlistState,
-    isLoaderLoading,
-    isErrorOccured,
-  } = useCartAndWishlist();
+  const { userAuthState } = useAuth();
+  const { isUserLoggedIn } = userAuthState;
+  const { cartItems, wishlistItems, cartAndWishlistDispatch } =
+    useCartAndWishlist();
 
   const { isItemWishlisted, isItemInCart } = findItemInCartAndWishlist(
     wishlistItems,
