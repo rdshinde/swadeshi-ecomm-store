@@ -1,10 +1,10 @@
 import React from "react";
 import "./cart.css";
 import { CartItem } from "../../components";
-import { useAuth } from "../../contexts/auth/authContext";
+import { useAuth, useCartAndWishlist } from "../../contexts";
 import { Link } from "react-router-dom";
-import { useCartAndWishlist } from "../../contexts/cart-and-wishlist/cartAndWishlistContext";
-import { priceAndQuantityHandler } from "../../utils/priceAndQuantityHandler";
+import { priceAndQuantityHandler } from "../../utils";
+
 export const Cart = () => {
   const { userAuthState } = useAuth();
   const { isUserLoggedIn } = userAuthState;
@@ -20,11 +20,12 @@ export const Cart = () => {
       {isUserLoggedIn ? (
         <section className="cart__items-container p-md gap-lg">
           <div className="cart__items">
-            {cartItems.map((cartItem) => (
-              <CartItem key={cartItem._id} itemData={cartItem} />
-            ))}
+            {cartItems &&
+              cartItems.map((cartItem) => (
+                <CartItem key={cartItem._id} itemData={cartItem} />
+              ))}
           </div>
-          {cartItems.length && (
+          {cartItems?.length && (
             <div className="cart__checkout border-rounded-sm p-md">
               <h3 className="text-gray text-center">Cart Summary</h3>
               <div className="divider m-y-md"></div>
@@ -66,10 +67,7 @@ export const Cart = () => {
                 <span className="text-3 bold-lg text-dark">
                   Total Amount: &#8377;{getDiscountedPrice(cartItems)}
                 </span>
-                <Link
-                  to={"/"}
-                  className="btn btn-default border-rounded-lg"
-                >
+                <Link to={"/"} className="btn btn-default border-rounded-lg">
                   Place Order
                 </Link>
               </div>

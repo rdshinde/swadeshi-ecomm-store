@@ -1,5 +1,3 @@
-import React from "react";
-
 export const Rating = ({ rating: { rating, totalRatings } }) => {
   return (
     <div className="rating">

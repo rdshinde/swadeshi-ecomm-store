@@ -1,23 +1,19 @@
-import React from "react";
-import { Rating, Price } from "../ui";
 import { Link } from "react-router-dom";
-import { useCartAndWishlist } from "../../contexts/cart-and-wishlist/cartAndWishlistContext";
-import { wishListHandler } from "../../utils/wishListHandler";
-import { DeliveryType } from "../delivery-time/DeliveryType";
+import { useCartAndWishlist } from "../../contexts";
+import { wishListHandler } from "../../utils";
+import { DeliveryType, Rating, Price } from "../index";
 export const WishlistItem = ({ itemData }) => {
   const {
     _id,
     make,
     name,
-    availableSize,
     imgUrl,
     originalPrice,
     discountedPrice,
     rating,
     totalRatings,
     isFastDelivery,
-    categoryName,
-    qty,
+    
   } = itemData;
   const { cartAndWishlistDispatch, cartItems } = useCartAndWishlist();
   const { removeFromWishlistHandler, moveToCartHandler } = wishListHandler(

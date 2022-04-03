@@ -1,15 +1,13 @@
-import { React, useState } from "react";
-import { DisplayItem, Loader } from "../../components";
-import { Filter } from "../../components/filter/Filter";
-import { useFilter } from "../../contexts/filter/FilterContext";
 import "./productFilter.css";
+import { useState } from "react";
+import { DisplayItem, Loader, Filter } from "../../components";
+import { useFilter, useProducts } from "../../contexts";
 import NoItems from "../../assets/NoItems.jpg";
-import { useCartAndWishlist } from "../../contexts/cart-and-wishlist/cartAndWishlistContext";
 
 export const ProductFilter = () => {
   const [showFilters, setShowFilters] = useState(false);
-  const { sortedProducts} = useFilter();
-  const { isLoaderLoading } = useCartAndWishlist();
+  const { sortedProducts } = useFilter();
+  const { isLoaderLoading } = useProducts();
   return (
     <div className="main gap-md">
       {isLoaderLoading && <Loader />}

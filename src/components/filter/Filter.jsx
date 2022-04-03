@@ -1,7 +1,5 @@
-import React from "react";
-import { useFilter } from "../../contexts/filter/FilterContext";
-// import { priceFilter } from "../../contexts/filter/filterUtils";
 import "./filter.css";
+import { useFilter } from "../../contexts";
 
 export const Filter = () => {
   const { filterState, filterDispatch } = useFilter();
@@ -115,7 +113,7 @@ export const Filter = () => {
             <input
               type="range"
               min="100"
-              max="10000"
+              max="5000"
               list="price-slider"
               step="100"
               className="range-input"
@@ -138,8 +136,8 @@ export const Filter = () => {
               }}
             >
               <option value="100" label="100"></option>
+              <option value="2500" label="2500"></option>
               <option value="5000" label="5000"></option>
-              <option value="10000" label="10000"></option>
             </datalist>
           </div>
         </div>

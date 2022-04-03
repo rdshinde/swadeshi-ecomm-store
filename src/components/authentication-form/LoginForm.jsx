@@ -1,9 +1,8 @@
 import "./authentication.css";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { useAuth } from "../../contexts/auth/authContext";
-import { useNavigate } from "react-router-dom";
-import { Loader } from "../loader/Loader";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts";
+import { Loader } from "../index";
 import { Toast } from "../../utils";
 export const LoginForm = () => {
   const navigate = useNavigate();
