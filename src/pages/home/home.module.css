@@ -10,7 +10,7 @@
   margin: auto;
 }
 .hero__text::before {
-  background: url("../../assets/heroBg.png");
+  background: url("../../../public/assets/heroBg.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
