@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import styles from "./authentication.module.css";
 import { PasswordInput } from "../password-input/PasswordInput";
 type SignupForm = {
   email: string;
@@ -34,7 +35,9 @@ export const SignupForm = () => {
     }));
   };
   return (
-    <div className="login-form m-md p-xl text-center border-rounded-sm">
+    <div
+      className={`${styles.login_form} m-md p-xl text-center border-rounded-sm`}
+    >
       {/* {isLoaderLoading && <Loader />} */}
       <h2 className="text-gray text-1 bold-lg ">Signup</h2>
 
@@ -106,7 +109,7 @@ export const SignupForm = () => {
           <button
             type="submit"
             onClick={(e) => e.stopPropagation()}
-            className={`btn btn-default border-rounded-lg submit-btn`}
+            className={`btn btn-default border-rounded-lg ${styles.submit_btn}`}
           >
             Submit
           </button>

@@ -1,0 +1,73 @@
+/* Aside Container */
+.main {
+  display: grid;
+  grid-template-areas: "aside main";
+  grid-template-columns: 0.2fr 0.8fr;
+  width: 100%;
+}
+.aside_wrapper {
+  background-color: var(--secondary-color);
+  grid-area: aside;
+  height: 100vh;
+  min-width: 20vw;
+  position: fixed;
+  z-index: 7;
+}
+.aside_container {
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+.main_wrapper {
+  grid-area: main;
+  width: 100%;
+}
+.filter_btn {
+  display: none;
+}
+/* Stling for card component and card-container */
+.cards_container {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+@media screen and (max-width: 1080px) {
+  .main {
+    grid-template-areas: "main";
+    grid-template-columns: 1fr;
+    margin-top: 0;
+  }
+  .aside_wrapper {
+    background-color: var(--secondary-color);
+    overflow-y: auto;
+    transition: all 0.5s ease-in;
+  }
+  .aside_container {
+    max-height: 75%;
+  }
+  .cards_container {
+    justify-content: center;
+  }
+  .filter_btn {
+    display: block;
+  }
+  .hide_filter {
+    transform: translateX(-100%);
+  }
+  .show_filter {
+    display: block;
+    transform: translateX(0%);
+  }
+  .search_result {
+    text-align: center;
+  }
+  .main_wrapper > .text-end {
+    margin-top: 0;
+  }
+}
+@media screen and (max-width: 550px) {
+  .aside_container {
+    max-height: 65%;
+  }
+}

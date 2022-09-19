@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./authentication.module.css";
+
 type LoginForm = {
   email: string;
   password: string;
