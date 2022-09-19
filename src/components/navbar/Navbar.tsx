@@ -1,12 +1,11 @@
 import styles from "./navbar.module.css";
-// import cart from "../../assets/cart.svg";
-// import wishlist from "../../assets/wishlist.svg";
+import { FaShoppingCart, FaHeart } from "../../services";
 import { NavLink } from "react-router-dom";
 const Navbar = () => {
   return (
     <nav className={`${styles.header__nav}`}>
       <div className={`${styles.nav__logo_container}`}>
-        <NavLink to="/" className="text-default">
+        <NavLink to="/" className={`${styles.heading} text-default`}>
           <i className="fa-solid fa-store"></i>&nbsp;
           <h1>Swadeshi</h1>
           <span className="bold-lg">.com</span>
@@ -29,14 +28,14 @@ const Navbar = () => {
         <div className={`${styles.nav__icons_cart}`}>
           <NavLink to="/cart">
             <div className={`${styles.badge__container}`}>
-              <img
-                className={`${styles.badge__container_img}`}
-                src="./assets/cart.svg"
-                alt="Cart"
-              />
+              <span className={`${styles.badge__container_img}`}>
+                <FaShoppingCart size={30} />
+              </span>
 
-              <div className="badge badge-top-right border-rounded-full bg-primary text-offwhite bold-xl">
-                {/* {getTotalQuantity(cartItems)} */}10
+              <div
+                className={`${styles.badge} badge badge-top-right border-rounded-full bg-primary text-offwhite bold-xl`}
+              >
+                10
               </div>
             </div>
           </NavLink>
@@ -44,14 +43,14 @@ const Navbar = () => {
         <div className={`${styles.nav__icons_wishlist}`}>
           <NavLink to="/wishlist">
             <div className={`${styles.badge__container}`}>
-              <img
-                className={`${styles.badge__container_img}`}
-                src="assets/wishlist.svg"
-                alt="Cart"
-              />
+              <span className={`${styles.badge__container_img}`}>
+                <FaHeart size={30} />
+              </span>
 
-              <div className="badge badge-top-right border-rounded-full bg-primary text-offwhite bold-xl">
-                {/* {wishlistItems.length} */}10
+              <div
+                className={`${styles.badge} badge badge-top-right border-rounded-full bg-primary text-offwhite bold-xl`}
+              >
+                10
               </div>
             </div>
           </NavLink>

@@ -1,8 +1,6 @@
-// import { Props } from "typescript";
 import { Footer, Navbar } from "../../components";
-import styles from "./layout.module.css";
-// import { Footer, Navbar } from "../../components";
-// import { ToastContainer } from "react-toastify";
+
+
 type Props = {
   children: JSX.Element;
 };
@@ -10,9 +8,8 @@ type Props = {
 export const Layout = ({ children }: Props) => {
   return (
     <div>
-      <header className="header-container">
+      <header className="header-container" style={{ position: "relative" }}>
         <Navbar />
-        {/* <ToastContainer /> */}
       </header>
       <main>{children}</main>
       <footer>

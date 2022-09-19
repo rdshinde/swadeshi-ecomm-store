@@ -4,9 +4,11 @@
   display: flex;
   flex-wrap: wrap;
   margin: auto;
-  padding: 0 var(--scale-md);
+  padding: var(--scale-md) var(--scale-lg);
 }
-
+.heading{
+  color: var(--default-color);
+}
 /* Nav Links Styling */
 .nav__links {
   display: flex;
@@ -78,14 +80,20 @@ input::placeholder {
 .nav__icons_login a {
   color: var(--primary-color);
 }
-
+.badge__container_img {
+  display: inline-block;
+  margin: auto var(--scale-lg);
+  position: relative;
+}
 .badge__container {
   cursor: pointer;
   font-size: var(--scale-lg);
+  position: relative;
 }
 .badge__container .badge {
   font-size: 13px;
   padding: 8px;
+  right: var(--scale-md);
 }
 
 @media screen and (max-width: 960px) {
