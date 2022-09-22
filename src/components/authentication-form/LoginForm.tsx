@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts";
+import { Loader } from "../loader/Loader";
 import styles from "./authentication.module.css";
 
 type LoginForm = {
@@ -8,10 +10,8 @@ type LoginForm = {
 };
 
 export const LoginForm = () => {
-  const navigate = useNavigate();
   const [showPwd, setShowPwd] = useState<boolean>(false);
-  //   const { userAuthDispatch, loginHandler, serverResponse, isLoaderLoading } =
-  //     useAuth();
+  const { loginHandler, serverResponse, isLoading } = useAuth();
   const [loginCredentials, setLoginCredentials] = useState<LoginForm>({
     email: "",
     password: "",
@@ -19,7 +19,7 @@ export const LoginForm = () => {
 
   const submitHandler = (e: any): void => {
     e.preventDefault();
-    // loginHandler(loginCredentials);
+    loginHandler(loginCredentials);
     setLoginCredentials((prev) => ({ ...prev, email: "", password: "" }));
   };
 
@@ -27,12 +27,9 @@ export const LoginForm = () => {
     <div
       className={`${styles.login_form} m-md p-xl text-center border-rounded-sm`}
     >
-      {/* {isLoaderLoading && <Loader />} */}
+      {isLoading && <Loader />}
       <h2 className="text-gray text-1 bold-lg ">Login</h2>
-      <form
-        className="text-start"
-        //   onSubmit={(e) => submitHandler(e)}
-      >
+      <form className="text-start" onSubmit={(e) => submitHandler(e)}>
         <div className={`input-group required `} success-message="">
           <label htmlFor="email-id"> Email </label>
           <input

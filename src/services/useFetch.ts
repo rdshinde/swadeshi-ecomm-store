@@ -61,26 +61,28 @@ export const useFetch = (
   if (encodedToken) {
     token = encodedToken;
   }
+  const API: string = `https://swadeshi-ecomm.herokuapp.com` + apiURL;
   const getData = async (): Promise<any> => {
     try {
       apiDataDispatch({ type: ApiDataActions.SET_LOADING, payload: true });
       switch (method) {
         case "GET":
-          serverResponse = await axios.get(apiURL, {
+          serverResponse = await axios.get(API, {
             headers: {
               authorization: token,
             },
           });
           break;
         case "POST":
-          serverResponse = await axios.post(apiURL, postMethodData, {
+          serverResponse = await axios.post(API, postMethodData, {
             headers: {
               authorization: token,
             },
           });
+          console.log("something", serverResponse);
           break;
         case "DELETE":
-          serverResponse = await axios.delete(apiURL, {
+          serverResponse = await axios.delete(API, {
             headers: {
               authorization: token,
             },

@@ -1,4 +1,5 @@
 import { authReducer } from "./authReducer";
+import { Toast } from "../../utils";
 import {
   useState,
   useContext,
@@ -12,6 +13,7 @@ import {
   LoginCredentials,
   ApiData,
   UserAuthStateActions,
+  UseAuth,
 } from "./AuthTypesDeclarations";
 import { useFetch } from "../../services";
 import { useNavigate } from "react-router-dom";
@@ -30,9 +32,9 @@ const initialUserAuthState: UserAuthState = {
 };
 
 const AuthContext = createContext<UserAuthState | any>(initialUserAuthState);
-export const useAuth = (): Object => useContext(AuthContext);
+export const useAuth = (): UseAuth => useContext(AuthContext);
 
-export const AuthProvider = ({ children }: Props): React.ReactNode => {
+export const AuthProvider = ({ children }: Props): JSX.Element => {
   const navigate = useNavigate();
   const [userAuthState, userAuthDispatch] = useReducer(
     authReducer,
@@ -56,7 +58,7 @@ export const AuthProvider = ({ children }: Props): React.ReactNode => {
       ...prev,
       apiURL: "/auth/signup",
       method: "POST",
-      apiPostData: { ...prev, ...signupCredentials },
+      apiPostData: { ...signupCredentials },
     }));
   };
   const loginHandler = (loginCredentials: LoginCredentials) => {
@@ -64,21 +66,24 @@ export const AuthProvider = ({ children }: Props): React.ReactNode => {
       ...prev,
       apiURL: "/auth/login",
       method: "POST",
-      apiPostData: { ...prev, ...loginCredentials },
+      apiPostData: { ...loginCredentials },
     }));
   };
-
-  const logoutHandler = (firstName: string) => {
+  const logoutHandler = () => {
     userAuthDispatch({ type: UserAuthStateActions.LOGOUT });
     localStorage.removeItem("token");
     navigate(`/`);
+    Toast({
+      type: "success",
+      message: `Logged out successfully.`,
+    });
   };
   useEffect(() => {
     let setTimeOutId: ReturnType<typeof setTimeout>;
     setTimeOutId = setTimeout(() => {
       const encodedTokenTemp = localStorage.getItem("token");
       if (encodedTokenTemp) {
-        const decodedToken: {} = unsign(encodedTokenTemp, SECRET);
+        const decodedToken: any = unsign(encodedTokenTemp, SECRET);
         userAuthDispatch({
           type: UserAuthStateActions.LOGIN,
           payload: {
@@ -88,7 +93,12 @@ export const AuthProvider = ({ children }: Props): React.ReactNode => {
           },
         });
 
-        navigate(`/home`);
+        navigate(`/`);
+        Toast({
+          type: "success",
+          message: `Logged in as ${decodedToken[0].firstName}`,
+        });
+        navigate("/");
       }
     });
     return () => clearTimeout(setTimeOutId);
@@ -97,32 +107,38 @@ export const AuthProvider = ({ children }: Props): React.ReactNode => {
   useEffect(() => {
     if (serverResponse || error.status) {
       if (serverResponse.status === 200) {
-        const {
-          data: { ...foundUser },
-        } = serverResponse;
+        const token: string = serverResponse.data.encodedToken;
+        const decodedToken: any = unsign(token, SECRET);
+
         userAuthDispatch({
           type: UserAuthStateActions.LOGIN,
           payload: {
             isUserLoggedIn: true,
             encodedToken: serverResponse.data.encodedToken,
-            user: { ...foundUser },
+            user: { ...decodedToken },
           },
         });
         localStorage.setItem("token", serverResponse.data.encodedToken);
-
-        navigate("/home");
+        Toast({
+          type: "success",
+          message: `Logged in as ${decodedToken[0].firstName}`,
+        });
+        navigate("/");
       } else if (serverResponse.status === 201) {
         localStorage.setItem("signup_token", serverResponse.data.encodedToken);
-
-        navigate(`/auth/login`);
+        Toast({
+          type: "success",
+          message: `${serverResponse.data.savedUser.firstName} resgistered successfully!`,
+        });
+        navigate(`/login`);
       } else if (serverResponse.status === 422) {
-        console.log("User Already Registered.", error.message);
+        Toast({ type: "error", message: `${error.message}` });
       } else if (serverResponse.status === 404) {
-        console.log("Invalid Access", error.message);
+        Toast({ type: "error", message: `${error.message}` });
       } else if (serverResponse.status === 401) {
-        console.log("Password not matched", error.message);
+        Toast({ type: "error", message: `${error.message}` });
       } else {
-        console.log("Something went wrong.", error.message);
+        Toast({ type: "error", message: `${error.message}` });
       }
     }
   }, [serverResponse, error]);

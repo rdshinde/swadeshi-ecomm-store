@@ -1,7 +1,15 @@
 import styles from "./navbar.module.css";
-import { FaShoppingCart, FaHeart } from "../../services";
+import {
+  FaShoppingCart,
+  FaHeart,
+  AiOutlineLogout,
+  FaUserAlt,
+} from "../../services";
 import { NavLink } from "react-router-dom";
+import { useAuth } from "../../contexts";
 const Navbar = () => {
+  const { userAuthState, logoutHandler } = useAuth();
+  const { isUserLoggedIn } = userAuthState;
   return (
     <nav className={`${styles.header__nav}`}>
       <div className={`${styles.nav__logo_container}`}>
@@ -56,18 +64,24 @@ const Navbar = () => {
           </NavLink>
         </div>
         <div className={`${styles.nav__icons_login}`}>
-          {/* <button
+          {isUserLoggedIn ? (
+            <button
               className="btn btn-default-outline border-rounded-md"
-            //   onClick={() => logoutHandler()}
+              onClick={() => logoutHandler()}
             >
-              <i className="fas fa-user btn__icon"></i>Logout
-            </button> */}
-
-          <NavLink to="/login">
-            <button className="btn btn-default-outline border-rounded-md">
-              <i className="fas fa-user btn__icon"></i>Login
+              <span>
+                <AiOutlineLogout />
+              </span>
+              &nbsp; Logout
             </button>
-          </NavLink>
+          ) : (
+            <NavLink to="/login">
+              <button className="btn btn-default-outline border-rounded-md">
+                <FaUserAlt />
+                &nbsp; Login
+              </button>
+            </NavLink>
+          )}
         </div>
       </div>
     </nav>

@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
-
+import { AiFillEyeInvisible, AiFillEye } from "../../services";
 import styles from "./password-input.module.css";
 
 type PasswordState = {
@@ -11,7 +11,7 @@ type PasswordState = {
   };
 };
 
-export const PasswordInput = ({ data: { getPassword } }: any) => {
+export const PasswordInput = ({ data: { getPassword, password } }: any) => {
   const [passwordState, setPasswordState] = useState<PasswordState>({
     isMatching: false,
     pwd: { initialPwd: "", confirmedPwd: "" },
@@ -64,7 +64,7 @@ export const PasswordInput = ({ data: { getPassword } }: any) => {
         success-message={`${confirmedPwd && "All looks good!"}`}
       >
         <label htmlFor="confirm-password">Confirm Password</label>
-        <div className="pwd-input">
+        <div className={styles.pwd_input}>
           <input
             type={`${showPwd ? "text" : "password"}`}
             id="confirm-password"
@@ -83,9 +83,7 @@ export const PasswordInput = ({ data: { getPassword } }: any) => {
             className={`${styles.show_pwd}`}
             onClick={() => setShowPwd((prev) => !prev)}
           >
-            <i
-              className={`fa-solid ${showPwd ? "fa-eye" : "fa-eye-slash"}`}
-            ></i>
+            {showPwd ? <AiFillEyeInvisible /> : <AiFillEye />}
           </div>
         </div>
       </div>

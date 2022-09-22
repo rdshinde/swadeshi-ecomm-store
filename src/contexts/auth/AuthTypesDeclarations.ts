@@ -17,7 +17,7 @@ export type LoginCredentials = {
 export type ApiData = {
   apiURL: string;
   method: "GET" | "POST" | "DELETE" | "";
-  apiPostData: {};
+  apiPostData: any;
   encodedToken: string;
 };
 
@@ -28,4 +28,13 @@ export enum UserAuthStateActions {
 export type UserAuthActions = {
   type: UserAuthStateActions;
   payload?: any;
+};
+export type UseAuth = {
+  userAuthState: UserAuthState;
+  userAuthDispatch: Function;
+  isLoading: boolean;
+  serverResponse: any;
+  signupHandler: Function;
+  loginHandler: Function;
+  logoutHandler: Function;
 };

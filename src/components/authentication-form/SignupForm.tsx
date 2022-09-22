@@ -2,6 +2,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import styles from "./authentication.module.css";
 import { PasswordInput } from "../password-input/PasswordInput";
+import { useAuth } from "../../contexts";
+import { Loader } from "../loader/Loader";
 type SignupForm = {
   email: string;
   password: string;
@@ -10,7 +12,7 @@ type SignupForm = {
 };
 
 export const SignupForm = () => {
-  const navigate = useNavigate();
+
   const [signupCredentials, setSignupCredentials] = useState<SignupForm>({
     email: "",
     password: "",
@@ -21,11 +23,11 @@ export const SignupForm = () => {
   const pwdChangeHandler = (pwd: string) => {
     setSignupCredentials((prev) => ({ ...prev, password: pwd }));
   };
-  //   const { serverResponse, isLoaderLoading, signupHandler } = useAuth();
+  const { signupHandler, isLoading } = useAuth();
 
   const submitHandler = (e: any) => {
     e.preventDefault();
-    // signupHandler(signupCredentials);
+    signupHandler(signupCredentials);
     setSignupCredentials((prev) => ({
       ...prev,
       email: "",
@@ -34,17 +36,15 @@ export const SignupForm = () => {
       lastName: "",
     }));
   };
+
   return (
     <div
       className={`${styles.login_form} m-md p-xl text-center border-rounded-sm`}
     >
-      {/* {isLoaderLoading && <Loader />} */}
+      {isLoading && <Loader />}
       <h2 className="text-gray text-1 bold-lg ">Signup</h2>
 
-      <form
-        className="text-start"
-        //    onSubmit={(e) => submitHandler(e)}
-      >
+      <form className="text-start" onSubmit={(e) => submitHandler(e)}>
         <div
           className={`input-group required`}
           success-message={`All looks good!`}
@@ -103,6 +103,7 @@ export const SignupForm = () => {
         <PasswordInput
           data={{
             getPassword: pwdChangeHandler,
+            password: signupCredentials.password,
           }}
         />
         <div className="input-group text-center">
