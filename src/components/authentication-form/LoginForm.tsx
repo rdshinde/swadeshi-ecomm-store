@@ -89,8 +89,8 @@ export const LoginForm = () => {
             onClick={(e) => {
               e.stopPropagation();
               setLoginCredentials({
-                email: "test@mail.com",
-                password: "Test@123",
+                email: "guestuser@mail.com",
+                password: "guest@123",
               });
             }}
           >

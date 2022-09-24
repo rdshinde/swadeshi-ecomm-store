@@ -1,4 +1,3 @@
-import { type } from "os";
 import { useReducer, useContext, createContext, useEffect } from "react";
 import { useFetch } from "../../services";
 import { useAuth } from "../auth/AuthProvider";

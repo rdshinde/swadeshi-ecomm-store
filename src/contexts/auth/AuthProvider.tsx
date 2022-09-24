@@ -137,8 +137,6 @@ export const AuthProvider = ({ children }: Props): JSX.Element => {
         Toast({ type: "error", message: `${error.message}` });
       } else if (serverResponse.status === 401) {
         Toast({ type: "error", message: `${error.message}` });
-      } else {
-        Toast({ type: "error", message: `${error.message}` });
       }
     }
   }, [serverResponse, error]);
