@@ -1,7 +1,10 @@
 /* Stling for card component and card-container */
-.card .card__footer .btn {
+.footer_btn {
   transition: all 0.5s;
   width: 100%;
+}
+.card__footer {
+  margin-bottom: var(--scale-md);
 }
 .card__wishlist,
 .card__remove {
@@ -31,7 +34,7 @@
   align-items: center;
   background-color: var(--secondary-color);
   color: var(--gray-color);
-  content: attr(description);
+  content: attr(product-details);
   display: flex;
   font-size: var(--scale-lg);
   font-weight: 500;

@@ -3,3 +3,10 @@
   color: var(--secondary-hover);
   font-size: var(--scale-md);
 }
+.rating_simple {
+  max-width: max-content;
+}
+.rating {
+  align-items: center;
+  display: flex;
+}

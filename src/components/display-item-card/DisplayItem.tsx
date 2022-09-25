@@ -20,6 +20,7 @@ export const DisplayItem = ({ itemData }: { itemData: Product }) => {
     isAddedToCart,
     isWishlisted,
   } = itemData;
+
   return (
     <div
       className={`card ${
@@ -27,7 +28,7 @@ export const DisplayItem = ({ itemData }: { itemData: Product }) => {
       } border-rounded-sm cursor-pointer p-x-md ${
         !isAvailable && "out-of-stock"
       }`}
-      description-details={description}
+      product-details={description}
     >
       <button
         className={`btn ${styles.card__wishlist} ${
@@ -64,14 +65,14 @@ export const DisplayItem = ({ itemData }: { itemData: Product }) => {
       <div className={`${styles.card__footer} text-center gap-sm`}>
         {isAddedToCart ? (
           <Link
-            className="btn btn-default-outline  border-rounded-md"
+            className={`${styles.footer_btn} btn btn-default-outline  border-rounded-md`}
             to={"/cart"}
           >
             Go to Cart
           </Link>
         ) : (
           <button
-            className="btn btn-default-outline  border-rounded-md"
+            className={`${styles.footer_btn} btn btn-default-outline  border-rounded-md`}
             // onClick={(e) => AddtoCartHandler(e, itemData)}
           >
             Add to Cart
