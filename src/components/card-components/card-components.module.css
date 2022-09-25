@@ -1,0 +1,5 @@
+.strike {
+  text-decoration: line-through;
+  color: var(--secondary-hover);
+  font-size: var(--scale-md);
+}

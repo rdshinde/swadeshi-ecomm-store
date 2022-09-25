@@ -8,10 +8,10 @@ type Item = {
   make: string;
   name: string;
   imgUrl: string;
-  originalPrice: number;
-  discountedPrice: number;
+  originalPrice: string;
+  discountedPrice: string;
   rating: string;
-  totalRatings: number;
+  totalRatings: string;
   qty: number;
   selectedSize: string;
 };

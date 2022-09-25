@@ -1,26 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Product } from "../../contexts/products/ProductsTypesDeclaration";
 import { Price } from "../card-components/Price";
 import { Ratings } from "../card-components/Ratings";
 import { DeliveryType } from "../delivery-type/DeliveryType";
-type Item = {
-  _id: number;
-  make: string;
-  name: string;
-  imgUrl: string;
-  originalPrice: number;
-  discountedPrice: number;
-  description: string;
-  isAvailable: boolean;
-  isFastDelivery: boolean;
-  isItemWishlisted: boolean;
-  isItemInCart: boolean;
-  rating: string;
-  totalRatings: number;
-  qty: number;
-  selectedSize: string;
-};
-export const WishlistItem = ({ itemData }: { itemData: Item }) => {
+
+export const WishlistItem = ({ itemData }: { itemData: Product }) => {
   const {
     _id,
     imgUrl,

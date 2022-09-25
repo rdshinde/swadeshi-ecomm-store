@@ -6,25 +6,9 @@ import Zoom from "react-medium-image-zoom";
 import { Ratings } from "../card-components/Ratings";
 import { Price } from "../card-components/Price";
 import { DeliveryType } from "../delivery-type/DeliveryType";
+import { Product } from "../../contexts/products/ProductsTypesDeclaration";
 
-type Item = {
-  _id: number;
-  make: string;
-  name: string;
-  imgUrl: string;
-  originalPrice: number;
-  discountedPrice: number;
-  description: string;
-  isAvailable: boolean;
-  isFastDelivery: boolean;
-  isItemWishlisted: boolean;
-  isItemInCart: boolean;
-  rating: string;
-  totalRatings: number;
-  qty: number;
-  selectedSize: string;
-};
-export const ProductDetails = ({ itemData }: { itemData: Item }) => {
+export const ProductDetails = ({ itemData }: { itemData: Product }) => {
   const navigate = useNavigate();
   const {
     _id,
@@ -36,8 +20,8 @@ export const ProductDetails = ({ itemData }: { itemData: Item }) => {
     rating,
     totalRatings,
     isFastDelivery,
-    isItemWishlisted,
-    isItemInCart,
+    isWishlisted,
+    isAddedToCart,
   } = itemData;
 
   const [productSize, setProductSize] = useState<string>();
@@ -53,7 +37,7 @@ export const ProductDetails = ({ itemData }: { itemData: Item }) => {
 
         <button
           className={`btn card__wishlist ${
-            isItemWishlisted ? "text-danger" : "text-gray"
+            isWishlisted ? "text-danger" : "text-gray"
           } p-sm`}
           //   onClick={(e) => addToWishListHandler(e, itemData)}
         >
@@ -84,7 +68,7 @@ export const ProductDetails = ({ itemData }: { itemData: Item }) => {
           ))}
         </div>
         <div className={`${styles.action_buttons} m-y-lg m-md`}>
-          {isItemWishlisted ? (
+          {isWishlisted ? (
             <Link
               className="btn btn-danger-outline  border-rounded-md m-r-md"
               to={"/wishlist"}
@@ -99,7 +83,7 @@ export const ProductDetails = ({ itemData }: { itemData: Item }) => {
               Add to Wishlist
             </button>
           )}
-          {isItemInCart ? (
+          {isAddedToCart ? (
             <Link className="btn btn-danger  border-rounded-md" to={"/cart"}>
               Go to Cart
             </Link>

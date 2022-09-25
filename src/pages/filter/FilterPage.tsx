@@ -1,16 +1,19 @@
 import React from "react";
 import { useState } from "react";
-import { DisplayItem, Filter } from "../../components";
+import { DisplayItem, Filter, Loader } from "../../components";
+import { useProducts } from "../../contexts";
+import { Product } from "../../contexts/products/ProductsTypesDeclaration";
 import styles from "./filter-page.module.css";
 
 export const FilterPage = () => {
   const [showFilters, setShowFilters] = useState<boolean>(false);
   //   const { sortedProducts } = useFilter();
   //   const { isLoaderLoading } = useProducts();
+  const { productState, isLoading } = useProducts();
   const sortedProducts: [] = [];
   return (
     <div className="main gap-md">
-      {/* {isLoaderLoading && <Loader />} */}
+      {isLoading && <Loader />}
       <div
         className={`${styles.aside_wrapper} ${
           !showFilters ? styles.hide_filter : styles.show_filter
@@ -47,7 +50,7 @@ export const FilterPage = () => {
               sortedProducts.length === 0 && "flex-center"
             }`}
           >
-            {sortedProducts.length === 0 && (
+            {productState?.allProducts?.length === 0 && (
               <div className="flex-center">
                 <div>
                   <img
@@ -60,7 +63,7 @@ export const FilterPage = () => {
                 </div>
               </div>
             )}
-            {sortedProducts.map((item, index) => (
+            {productState?.allProducts?.map((item: Product, index: number) => (
               <DisplayItem key={index} itemData={item} />
             ))}
           </div>

@@ -2,25 +2,9 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./display-item.module.css";
 import { Price, Ratings } from "../index";
+import { Product } from "../../contexts/products/ProductsTypesDeclaration";
 
-type Item = {
-  _id: number;
-  make: string;
-  name: string;
-  imgUrl: string;
-  originalPrice: number;
-  discountedPrice: number;
-  description: string;
-  isAvailable: boolean;
-  isFastDelivery: boolean;
-  isItemWishlisted: boolean;
-  isItemInCart: boolean;
-  rating: string;
-  totalRatings: number;
-  qty: number;
-  selectedSize: string;
-};
-export const DisplayItem = ({ itemData }: { itemData: Item }) => {
+export const DisplayItem = ({ itemData }: { itemData: Product }) => {
   const {
     _id,
     imgUrl,
@@ -33,8 +17,8 @@ export const DisplayItem = ({ itemData }: { itemData: Item }) => {
     totalRatings,
     isAvailable,
     isFastDelivery,
-    isItemInCart,
-    isItemWishlisted,
+    isAddedToCart,
+    isWishlisted,
   } = itemData;
   return (
     <div
@@ -47,7 +31,7 @@ export const DisplayItem = ({ itemData }: { itemData: Item }) => {
     >
       <button
         className={`btn ${styles.card__wishlist} ${
-          isItemWishlisted ? "text-danger" : "text-gray"
+          isWishlisted ? "text-danger" : "text-gray"
         } p-sm`}
         // onClick={(e) => addToWishListHandler(e, itemData)}
       >
@@ -78,7 +62,7 @@ export const DisplayItem = ({ itemData }: { itemData: Item }) => {
         )}
       </div>
       <div className={`${styles.card__footer} text-center gap-sm`}>
-        {isItemInCart ? (
+        {isAddedToCart ? (
           <Link
             className="btn btn-default-outline  border-rounded-md"
             to={"/cart"}

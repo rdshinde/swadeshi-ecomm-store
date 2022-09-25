@@ -20,7 +20,8 @@
 
 .main_wrapper {
   grid-area: main;
-  width: 100%;
+  /* width: 100%; */
+  margin-left: 20vw;
 }
 .filter_btn {
   display: none;
@@ -30,6 +31,7 @@
   align-items: center;
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-evenly;
 }
 
 @media screen and (max-width: 1080px) {
@@ -64,6 +66,9 @@
   }
   .main_wrapper > .text-end {
     margin-top: 0;
+  }
+  .main_wrapper {
+    margin-left: 0;
   }
 }
 @media screen and (max-width: 550px) {

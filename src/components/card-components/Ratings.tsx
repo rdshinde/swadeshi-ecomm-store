@@ -2,7 +2,7 @@ import React from "react";
 
 type Rating = {
   rating: string;
-  totalRatings: number;
+  totalRatings: string;
 };
 
 export const Ratings = ({
@@ -16,7 +16,7 @@ export const Ratings = ({
         <i className="fa fa-star rated"></i>
         <span className="bold-lg">{rating}</span>
       </div>
-      <p className="text-4 text-gray bold-lg m-x-md">{totalRatings} Ratings</p>
+      <span className="text-4 text-gray bold-lg m-x-md">{totalRatings} Ratings</span>
     </div>
   );
 };

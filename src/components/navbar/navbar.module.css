@@ -5,8 +5,15 @@
   flex-wrap: wrap;
   margin: auto;
   padding: var(--scale-md) var(--scale-lg);
+  position: fixed;
+  top: 0;
+  width: 99%;
+  max-width: 97vw;
+  background-color: var(--secondary-color);
+  z-index: 10;
+  
 }
-.heading{
+.heading {
   color: var(--default-color);
 }
 /* Nav Links Styling */
