@@ -2,7 +2,12 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./display-item.module.css";
 import { Price, Ratings } from "../index";
-import { Product } from "../../contexts/products/ProductsTypesDeclaration";
+import {
+  Product,
+  ProductsApiActions,
+} from "../../contexts/products/ProductsTypesDeclaration";
+import { useProducts } from "../../contexts";
+import { addToCart, addToWishlist } from "../../utils";
 
 export const DisplayItem = ({ itemData }: { itemData: Product }) => {
   const {
@@ -20,7 +25,7 @@ export const DisplayItem = ({ itemData }: { itemData: Product }) => {
     isAddedToCart,
     isWishlisted,
   } = itemData;
-
+  const { productsApiDispatch } = useProducts();
   return (
     <div
       className={`card ${
@@ -34,7 +39,7 @@ export const DisplayItem = ({ itemData }: { itemData: Product }) => {
         className={`btn ${styles.card__wishlist} ${
           isWishlisted ? "text-danger" : "text-gray"
         } p-sm`}
-        // onClick={(e) => addToWishListHandler(e, itemData)}
+        onClick={(e) => addToWishlist(itemData, productsApiDispatch)}
       >
         <i className="fa-solid fa-heart"></i>
       </button>
@@ -73,7 +78,7 @@ export const DisplayItem = ({ itemData }: { itemData: Product }) => {
         ) : (
           <button
             className={`${styles.footer_btn} btn btn-default-outline  border-rounded-md`}
-            // onClick={(e) => AddtoCartHandler(e, itemData)}
+            onClick={(e) => addToCart(itemData, productsApiDispatch)}
           >
             Add to Cart
           </button>

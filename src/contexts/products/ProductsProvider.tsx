@@ -13,8 +13,8 @@ import {
 
 const initialProductsState: ProductsState = {
   allProducts: [],
-  cart: [],
-  wishlist: [],
+  cart: { qty: 0, products: [] },
+  wishlist: { qty: 0, products: [] },
 };
 
 const initialProductsApiState: ProductsApiState = {
@@ -55,12 +55,12 @@ export const ProductsProvider = ({ children }: Props): JSX.Element => {
           type: ProductsActions.ADD_ALL_PRODUCTS,
           payload: serverResponse.data.products,
         });
-      } else if (serverResponse.data?.cart) {
+      } else if (serverResponse.data?.cart?.qty) {
         productsDispatch({
           type: ProductsActions.SET_CART_PRODUCTS,
           payload: serverResponse.data.cart,
         });
-      } else if (serverResponse.data?.wishlist) {
+      } else if (serverResponse.data?.wishlist?.qty) {
         productsDispatch({
           type: ProductsActions.SET_WISHLIST_PRODUCTS,
           payload: serverResponse.data.wishlist,
@@ -70,29 +70,36 @@ export const ProductsProvider = ({ children }: Props): JSX.Element => {
   }, [serverResponse]);
 
   useEffect(() => {
-    productsApiDispatch({ type: ProductsApiActions.GET_ALL_PRODUCTS });
     let setTimeOutId: ReturnType<typeof setTimeout>;
     setTimeOutId = setTimeout(() => {
-      if (!isUserLoggedIn) {
-        productsApiDispatch({ type: ProductsApiActions.USER_NOT_LOGGED_IN });
-      } else {
-        productsApiDispatch({ type: ProductsApiActions.GET_CART_PRODUCTS });
-        let setTimeOutId = setTimeout(() => {
-          if (isUserLoggedIn) {
-            productsApiDispatch({
-              type: ProductsApiActions.GET_WISHLIST_PRODUCTS,
-            });
-          }
-        });
-        clearTimeout(setTimeOutId);
-      }
+      productsApiDispatch({ type: ProductsApiActions.GET_ALL_PRODUCTS });
     });
-    clearTimeout(setTimeOutId);
-  }, []);
+    if (!isUserLoggedIn) {
+      productsApiDispatch({ type: ProductsApiActions.USER_NOT_LOGGED_IN });
+    } else {
+      setTimeOutId = setTimeout(() => {
+        productsApiDispatch({
+          type: ProductsApiActions.GET_CART_PRODUCTS,
+        });
+      }, 0);
+      setTimeOutId = setTimeout(() => {
+        productsApiDispatch({
+          type: ProductsApiActions.GET_WISHLIST_PRODUCTS,
+        });
+      }, 100);
+    }
+    return () => clearTimeout(setTimeOutId);
+  }, [isUserLoggedIn]);
 
   return (
     <ProductContext.Provider
-      value={{ productState, isLoading, error, productsDispatch }}
+      value={{
+        productState,
+        isLoading,
+        error,
+        productsDispatch,
+        productsApiDispatch,
+      }}
     >
       {children}
     </ProductContext.Provider>

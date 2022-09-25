@@ -6,10 +6,14 @@ import {
   FaUserAlt,
 } from "../../services";
 import { NavLink } from "react-router-dom";
-import { useAuth } from "../../contexts";
+import { useAuth, useProducts } from "../../contexts";
 const Navbar = () => {
+  const {
+    productState: { cart, wishlist },
+  } = useProducts();
   const { userAuthState, logoutHandler } = useAuth();
   const { isUserLoggedIn } = userAuthState;
+  console.log(cart?.qty);
   return (
     <nav className={`${styles.header__nav}`}>
       <div className={`${styles.nav__logo_container}`}>
@@ -40,11 +44,15 @@ const Navbar = () => {
                 <FaShoppingCart size={30} />
               </span>
 
-              <div
-                className={`${styles.badge} badge badge-top-right border-rounded-full bg-primary text-offwhite bold-xl`}
-              >
-                10
-              </div>
+              {cart?.qty ? (
+                <div
+                  className={`${styles.badge} badge badge-top-right border-rounded-full bg-primary text-offwhite bold-xl`}
+                >
+                  {cart?.qty}
+                </div>
+              ) : (
+                ""
+              )}
             </div>
           </NavLink>
         </div>
@@ -55,11 +63,15 @@ const Navbar = () => {
                 <FaHeart size={30} />
               </span>
 
-              <div
-                className={`${styles.badge} badge badge-top-right border-rounded-full bg-primary text-offwhite bold-xl`}
-              >
-                10
-              </div>
+              {wishlist?.qty ? (
+                <div
+                  className={`${styles.badge} badge badge-top-right border-rounded-full bg-primary text-offwhite bold-xl`}
+                >
+                  {wishlist?.qty}
+                </div>
+              ) : (
+                ""
+              )}
             </div>
           </NavLink>
         </div>

@@ -79,7 +79,6 @@ export const useFetch = (
               authorization: token,
             },
           });
-          console.log("something", serverResponse);
           break;
         case "DELETE":
           serverResponse = await axios.delete(API, {

@@ -18,12 +18,20 @@ export const productsReducer = (
     case ProductsActions.SET_CART_PRODUCTS:
       return {
         ...state,
-        cart: [...payload],
+        cart: {
+          ...state.cart,
+          qty: payload.qty,
+          products: [...payload.products],
+        },
       };
     case ProductsActions.SET_WISHLIST_PRODUCTS:
       return {
         ...state,
-        wishlist: [...payload],
+        wishlist: {
+          ...state.wishlist,
+          qty: payload.qty,
+          products: [...payload.products],
+        },
       };
     default:
       return state;

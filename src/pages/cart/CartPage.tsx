@@ -2,16 +2,21 @@ import React from "react";
 import styles from "./cart-page.module.css";
 import { Link } from "react-router-dom";
 import { CartItem } from "../../components";
+import { useAuth, useProducts } from "../../contexts";
+import { Product } from "../../contexts/products/ProductsTypesDeclaration";
 export const CartPage = () => {
   //   const { userAuthState } = useAuth();
   //   const { isUserLoggedIn } = userAuthState;
-  //   const { cartItems } = useCartAndWishlist();
+  //   const { cart?.products } = useCartAndWishlist();
 
   //   const { getTotalQuantity, getTotalPrice, getDiscountedPrice } =
   //     priceAndQuantityHandler();
-  const isUserLoggedIn = true;
-  const cartItems: [] = [];
-
+  const {
+    userAuthState: { isUserLoggedIn },
+  } = useAuth();
+  const {
+    productState: { cart },
+  } = useProducts();
   return (
     <>
       <div className="cart__heading text-center m-y-md">
@@ -20,33 +25,33 @@ export const CartPage = () => {
       {isUserLoggedIn ? (
         <section className={`${styles.cart__items_container} p-md gap-lg`}>
           <div className={styles.cart__items}>
-            {cartItems &&
-              cartItems.map((cartItem, index) => (
+            {cart?.products &&
+              cart?.products.map((cartItem: Product, index: number) => (
                 <CartItem key={index} itemData={cartItem} />
               ))}
           </div>
-          {cartItems?.length && (
+          {cart?.products?.length && (
             <div className={`${styles.cart__checkout} border-rounded-sm p-md`}>
               <h3 className="text-gray text-center">Cart Summary</h3>
               <div className="divider m-y-md"></div>
               <div className="text-4 space-between bold-lg ">
-                {/* Total Items <span>{getTotalQuantity(cartItems)}</span> */}
+                {/* Total Items <span>{getTotalQuantity(cart?.products)}</span> */}
               </div>
               <div className="text-4 space-between bold-lg m-y-md">
                 Total Price
-                {/* <span>&#8377;{Math.trunc(getTotalPrice(cartItems))}</span> */}
+                {/* <span>&#8377;{Math.trunc(getTotalPrice(cart?.products))}</span> */}
               </div>
               <div className="text-4 space-between bold-lg m-y-md">
                 Total Discount
                 <span className="text-success">
                   -&#8377;
-                  {/* {getTotalPrice(cartItems) - getDiscountedPrice(cartItems)} */}
+                  {/* {getTotalPrice(cart?.products) - getDiscountedPrice(cart?.products)} */}
                 </span>
               </div>
               <div className="text-4 space-between bold-lg m-y-md">
                 Final Price
                 <span className="">
-                  {/* &#8377;{Math.trunc(getDiscountedPrice(cartItems))} */}
+                  {/* &#8377;{Math.trunc(getDiscountedPrice(cart?.products))} */}
                 </span>
               </div>
               <div className="divider"></div>
@@ -65,7 +70,7 @@ export const CartPage = () => {
               </div>
               <div className="cart__order-btn space-between">
                 <span className="text-3 bold-lg text-dark">
-                  {/* Total Amount: &#8377;{getDiscountedPrice(cartItems)} */}
+                  {/* Total Amount: &#8377;{getDiscountedPrice(cart?.products)} */}
                 </span>
                 <Link to={"/"} className="btn btn-default border-rounded-lg">
                   Place Order
@@ -86,7 +91,7 @@ export const CartPage = () => {
           </div>
         </div>
       )}
-      {isUserLoggedIn && cartItems.length === 0 && (
+      {isUserLoggedIn && cart?.products.length === 0 && (
         <div className="text-center">
           <h3>Your Cart is empty.</h3>
           <div className="m-xl">

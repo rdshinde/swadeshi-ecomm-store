@@ -38,7 +38,7 @@ export const productsApiReducer = (
     case ProductsApiActions.ADD_TO_WISHLIST:
       return {
         ...state,
-        apiURL: "user/wishlist",
+        apiURL: "/user/wishlist",
         method: "POST",
         postMethodData: { ...payload },
       };

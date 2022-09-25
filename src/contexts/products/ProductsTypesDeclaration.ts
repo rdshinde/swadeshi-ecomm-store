@@ -21,8 +21,14 @@ export type Product = {
 
 export type ProductsState = {
   allProducts: Product[];
-  cart: Product[];
-  wishlist: Product[];
+  cart: {
+    qty: number;
+    products: Product[];
+  };
+  wishlist: {
+    qty: number;
+    products: Product[];
+  };
 };
 
 export type Props = {
