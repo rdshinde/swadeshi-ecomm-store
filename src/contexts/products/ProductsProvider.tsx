@@ -71,12 +71,7 @@ export const ProductsProvider = ({ children }: Props): JSX.Element => {
 
   useEffect(() => {
     let setTimeOutId: ReturnType<typeof setTimeout>;
-    setTimeOutId = setTimeout(() => {
-      productsApiDispatch({ type: ProductsApiActions.GET_ALL_PRODUCTS });
-    });
-    if (!isUserLoggedIn) {
-      productsApiDispatch({ type: ProductsApiActions.USER_NOT_LOGGED_IN });
-    } else {
+    if (isUserLoggedIn) {
       setTimeOutId = setTimeout(() => {
         productsApiDispatch({
           type: ProductsApiActions.GET_CART_PRODUCTS,
@@ -86,10 +81,16 @@ export const ProductsProvider = ({ children }: Props): JSX.Element => {
         productsApiDispatch({
           type: ProductsApiActions.GET_WISHLIST_PRODUCTS,
         });
-      }, 100);
+      }, 0);
+    } else {
+      productsApiDispatch({ type: ProductsApiActions.USER_NOT_LOGGED_IN });
     }
     return () => clearTimeout(setTimeOutId);
   }, [isUserLoggedIn]);
+
+  useEffect(() => {
+    productsApiDispatch({ type: ProductsApiActions.GET_ALL_PRODUCTS });
+  }, [productState.cart, productState.wishlist]);
 
   return (
     <ProductContext.Provider

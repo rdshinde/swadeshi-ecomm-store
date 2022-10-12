@@ -13,7 +13,6 @@ const Navbar = () => {
   } = useProducts();
   const { userAuthState, logoutHandler } = useAuth();
   const { isUserLoggedIn } = userAuthState;
-  console.log(cart?.qty);
   return (
     <nav className={`${styles.header__nav}`}>
       <div className={`${styles.nav__logo_container}`}>
