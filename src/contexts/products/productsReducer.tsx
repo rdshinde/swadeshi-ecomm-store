@@ -33,6 +33,18 @@ export const productsReducer = (
           products: [...payload.products],
         },
       };
+    case ProductsActions.USER_NOT_LOGGED_IN:
+      return {
+        ...state,
+        wishlist: {
+          qty: 0,
+          products: [],
+        },
+        cart: {
+          qty: 0,
+          products: [],
+        },
+      };
     default:
       return state;
   }

@@ -26,6 +26,7 @@ export const DisplayItem = ({ itemData }: { itemData: Product }) => {
     isWishlisted,
   } = itemData;
   const { productsApiDispatch } = useProducts();
+  console.log(isAddedToCart);
   return (
     <div
       className={`card ${

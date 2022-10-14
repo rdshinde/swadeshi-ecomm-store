@@ -4,6 +4,7 @@ import { useAuth } from "../auth/AuthProvider";
 import { productsApiReducer } from "./productsApiReducer";
 import { productsReducer } from "./productsReducer";
 import {
+  Product,
   ProductsActions,
   ProductsApiActions,
   ProductsApiState,
@@ -55,6 +56,11 @@ export const ProductsProvider = ({ children }: Props): JSX.Element => {
           type: ProductsActions.ADD_ALL_PRODUCTS,
           payload: serverResponse.data.products,
         });
+        updateProducts(
+          serverResponse?.data?.cart?.products,
+          productState?.cart?.products,
+          productState?.wishlist?.products
+        );
       } else if (serverResponse.data?.cart?.qty) {
         productsDispatch({
           type: ProductsActions.SET_CART_PRODUCTS,
@@ -72,11 +78,9 @@ export const ProductsProvider = ({ children }: Props): JSX.Element => {
   useEffect(() => {
     let setTimeOutId: ReturnType<typeof setTimeout>;
     if (isUserLoggedIn) {
-      setTimeOutId = setTimeout(() => {
-        productsApiDispatch({
-          type: ProductsApiActions.GET_CART_PRODUCTS,
-        });
-      }, 0);
+      productsApiDispatch({
+        type: ProductsApiActions.GET_CART_PRODUCTS,
+      });
       setTimeOutId = setTimeout(() => {
         productsApiDispatch({
           type: ProductsApiActions.GET_WISHLIST_PRODUCTS,
@@ -84,6 +88,7 @@ export const ProductsProvider = ({ children }: Props): JSX.Element => {
       }, 0);
     } else {
       productsApiDispatch({ type: ProductsApiActions.USER_NOT_LOGGED_IN });
+      productsDispatch({ type: ProductsActions.USER_NOT_LOGGED_IN });
     }
     return () => clearTimeout(setTimeOutId);
   }, [isUserLoggedIn]);
@@ -91,6 +96,12 @@ export const ProductsProvider = ({ children }: Props): JSX.Element => {
   useEffect(() => {
     productsApiDispatch({ type: ProductsApiActions.GET_ALL_PRODUCTS });
   }, [productState.cart, productState.wishlist]);
+
+  const updateProducts = (products: any, cart: any, wishlist: any) => {
+    if (products) {
+      
+    }
+  };
 
   return (
     <ProductContext.Provider

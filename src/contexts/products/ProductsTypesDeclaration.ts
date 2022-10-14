@@ -66,6 +66,7 @@ export enum ProductsActions {
   ADD_ALL_PRODUCTS = "ADD_ALL_PRODUCTS",
   SET_CART_PRODUCTS = "SET_CART_PRODUCTS",
   SET_WISHLIST_PRODUCTS = "SET_WISHLIST_PRODUCTS",
+  USER_NOT_LOGGED_IN = "USER_NOT_LOGGED_IN",
 }
 export type ProductsAction = {
   type: ProductsActions;
