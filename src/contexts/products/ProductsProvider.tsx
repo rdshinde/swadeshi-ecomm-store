@@ -94,6 +94,14 @@ export const ProductsProvider = ({ children }: Props): JSX.Element => {
             type: ProductsActions.SET_WISHLIST_PRODUCTS,
             payload: wishlistResponse.data.wishlist,
           });
+          productsDispatch({
+            type: ProductsActions.UPDATE_PRODUCTS_IN_WISHLIST,
+            payload: wishlistResponse.data.wishlist.products,
+          });
+          productsDispatch({
+            type: ProductsActions.UPDATE_PRODUCTS_IN_CART,
+            payload: cartResponse.data.cart.products,
+          });
         })
         .catch((err) => console.log(err));
     } else {

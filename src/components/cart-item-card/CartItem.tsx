@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import styles from "./cart-item.module.css";
 import { Ratings, Price } from "../index";
 import { Product } from "../../contexts/products/ProductsTypesDeclaration";
+import { useProducts } from "../../contexts";
+import { removeFromCart } from "../../utils";
 
 export const CartItem = ({ itemData }: { itemData: Product }) => {
   const {
@@ -18,7 +20,7 @@ export const CartItem = ({ itemData }: { itemData: Product }) => {
     quantitiesInCart,
     // selectedSize,
   } = itemData;
-  console.log(itemData);
+  const { productsApiDispatch } = useProducts();
   return (
     <section className={`${styles.cart__item} border-rounded-sm`}>
       <div className={`${styles.cart__item_info} flex-center`}>
@@ -66,6 +68,7 @@ export const CartItem = ({ itemData }: { itemData: Product }) => {
         <button
           className="item__delete flex-center btn m-r-lg"
           //   onClick={(e) => cartItemDeleteHandler(e, _id)}
+          onClick={() => removeFromCart(_id, productsApiDispatch)}
         >
           <i className="fa-solid fa-circle-xmark"></i>
         </button>

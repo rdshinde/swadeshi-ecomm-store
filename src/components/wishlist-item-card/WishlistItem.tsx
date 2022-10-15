@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useProducts } from "../../contexts";
 import { Product } from "../../contexts/products/ProductsTypesDeclaration";
+import { removeFromWishlist } from "../../utils";
 import { Price } from "../card-components/Price";
 import { Ratings } from "../card-components/Ratings";
 import { DeliveryType } from "../delivery-type/DeliveryType";
@@ -17,7 +19,7 @@ export const WishlistItem = ({ itemData }: { itemData: Product }) => {
     totalRatings,
     isFastDelivery,
   } = itemData;
-
+  const { productsApiDispatch } = useProducts();
   return (
     <div
       className="card border-rounded-sm cursor-pointer p-x-md"
@@ -25,7 +27,7 @@ export const WishlistItem = ({ itemData }: { itemData: Product }) => {
     >
       <button
         className="btn card__wishlist text-gray p-sm"
-        // onClick={(e) => removeFromWishlistHandler(e, _id)}
+        onClick={() => removeFromWishlist(_id, productsApiDispatch)}
       >
         <i className="fa-solid fa-trash-can"></i>
       </button>

@@ -1,10 +1,9 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link} from "react-router-dom";
 import styles from "./display-item.module.css";
 import { Price, Ratings } from "../index";
 import {
   Product,
-  ProductsApiActions,
 } from "../../contexts/products/ProductsTypesDeclaration";
 import { useProducts } from "../../contexts";
 import { addToCart, addToWishlist } from "../../utils";
@@ -26,7 +25,6 @@ export const DisplayItem = ({ itemData }: { itemData: Product }) => {
     isWishlisted,
   } = itemData;
   const { productsApiDispatch } = useProducts();
-  console.log(isAddedToCart);
   return (
     <div
       className={`card ${
@@ -74,6 +72,7 @@ export const DisplayItem = ({ itemData }: { itemData: Product }) => {
             className={`${styles.footer_btn} btn btn-default-outline  border-rounded-md`}
             to={"/cart"}
           >
+            
             Go to Cart
           </Link>
         ) : (
