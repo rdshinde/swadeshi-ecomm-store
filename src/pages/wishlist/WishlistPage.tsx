@@ -1,14 +1,11 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { WishlistItem } from "../../components";
 import { useAuth, useProducts } from "../../contexts";
 import { Product } from "../../contexts/products/ProductsTypesDeclaration";
 
 export const WishlistPage = () => {
-  //   const { wishlist?.products } = useCartAndWishlist();
-  //   const {
-  //     userAuthState: { isUserLoggedIn },
-  //   } = useAuth();
+  const [wishlistProducts, setWishlistProducts] = useState<Product[]>([]);
 
   const {
     userAuthState: { isUserLoggedIn },
@@ -16,6 +13,11 @@ export const WishlistPage = () => {
   const {
     productState: { wishlist },
   } = useProducts();
+
+  useEffect(() => {
+    setWishlistProducts([...wishlist.products]);
+  }, [wishlist, isUserLoggedIn]);
+
   return (
     <>
       <div className="wishlist__heading text-center m-y-md">
@@ -23,10 +25,10 @@ export const WishlistPage = () => {
       </div>
       {isUserLoggedIn ? (
         <div className="wishlist__items-container flex-center wrap-items">
-          {wishlist?.products?.map((item: Product) => (
+          {wishlistProducts?.map((item: Product) => (
             <WishlistItem itemData={item} />
           ))}
-          {wishlist?.qty && (
+          {wishlist?.qty ? (
             <div className="text-center">
               <h3>Your Wishlist is empty.</h3>
               <div className="m-xl">
@@ -37,6 +39,8 @@ export const WishlistPage = () => {
                 </Link>
               </div>
             </div>
+          ) : (
+            ""
           )}
         </div>
       ) : (

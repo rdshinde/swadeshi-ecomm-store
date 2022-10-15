@@ -18,6 +18,7 @@ export const CartItem = ({ itemData }: { itemData: Product }) => {
     quantitiesInCart,
     // selectedSize,
   } = itemData;
+  console.log(itemData);
   return (
     <section className={`${styles.cart__item} border-rounded-sm`}>
       <div className={`${styles.cart__item_info} flex-center`}>

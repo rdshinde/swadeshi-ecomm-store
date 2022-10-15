@@ -1,5 +1,5 @@
 import { useReducer, useContext, createContext, useEffect } from "react";
-import { useFetch } from "../../services";
+import { getData, useFetch } from "../../services";
 import { useAuth } from "../auth/AuthProvider";
 import { productsApiReducer } from "./productsApiReducer";
 import { productsReducer } from "./productsReducer";
@@ -56,52 +56,55 @@ export const ProductsProvider = ({ children }: Props): JSX.Element => {
           type: ProductsActions.ADD_ALL_PRODUCTS,
           payload: serverResponse.data.products,
         });
-        updateProducts(
-          serverResponse?.data?.cart?.products,
-          productState?.cart?.products,
-          productState?.wishlist?.products
-        );
       } else if (serverResponse.data?.cart?.qty) {
         productsDispatch({
           type: ProductsActions.SET_CART_PRODUCTS,
           payload: serverResponse.data.cart,
+        });
+        productsDispatch({
+          type: ProductsActions.UPDATE_PRODUCTS_IN_CART,
+          payload: serverResponse.data.cart.products,
         });
       } else if (serverResponse.data?.wishlist?.qty) {
         productsDispatch({
           type: ProductsActions.SET_WISHLIST_PRODUCTS,
           payload: serverResponse.data.wishlist,
         });
+        productsDispatch({
+          type: ProductsActions.UPDATE_PRODUCTS_IN_WISHLIST,
+          payload: serverResponse.data.wishlist.products,
+        });
       }
     }
   }, [serverResponse]);
 
   useEffect(() => {
-    let setTimeOutId: ReturnType<typeof setTimeout>;
     if (isUserLoggedIn) {
-      productsApiDispatch({
-        type: ProductsApiActions.GET_CART_PRODUCTS,
-      });
-      setTimeOutId = setTimeout(() => {
-        productsApiDispatch({
-          type: ProductsApiActions.GET_WISHLIST_PRODUCTS,
-        });
-      }, 0);
+      Promise.all([
+        getData("/user/cart", encodedToken),
+        getData("/user/wishlist", encodedToken),
+      ])
+        .then((values) => {
+          const [cartResponse, wishlistResponse] = values;
+          productsDispatch({
+            type: ProductsActions.SET_CART_PRODUCTS,
+            payload: cartResponse.data.cart,
+          });
+          productsDispatch({
+            type: ProductsActions.SET_WISHLIST_PRODUCTS,
+            payload: wishlistResponse.data.wishlist,
+          });
+        })
+        .catch((err) => console.log(err));
     } else {
       productsApiDispatch({ type: ProductsApiActions.USER_NOT_LOGGED_IN });
       productsDispatch({ type: ProductsActions.USER_NOT_LOGGED_IN });
     }
-    return () => clearTimeout(setTimeOutId);
   }, [isUserLoggedIn]);
 
   useEffect(() => {
     productsApiDispatch({ type: ProductsApiActions.GET_ALL_PRODUCTS });
-  }, [productState.cart, productState.wishlist]);
-
-  const updateProducts = (products: any, cart: any, wishlist: any) => {
-    if (products) {
-      
-    }
-  };
+  }, []);
 
   return (
     <ProductContext.Provider

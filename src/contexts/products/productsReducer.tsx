@@ -1,4 +1,5 @@
 import {
+  Product,
   ProductsAction,
   ProductsActions,
   ProductsState,
@@ -45,6 +46,33 @@ export const productsReducer = (
           products: [],
         },
       };
+
+    case ProductsActions.UPDATE_PRODUCTS_IN_CART:
+      const updatedAllProducts = state.allProducts.map((product: Product) => {
+        if (payload.some((pr: Product) => pr._id == product._id)) {
+          return { ...product, isAddedToCart: true };
+        } else {
+          return { ...product };
+        }
+      });
+      return {
+        ...state,
+        allProducts: [...updatedAllProducts],
+      };
+
+    case ProductsActions.UPDATE_PRODUCTS_IN_WISHLIST:
+      const updatedProducts = state.allProducts.map((product: Product) => {
+        if (payload.some((pr: Product) => pr._id == product._id)) {
+          return { ...product, isWishlisted: true };
+        } else {
+          return { ...product };
+        }
+      });
+      return {
+        ...state,
+        allProducts: [...updatedProducts],
+      };
+
     default:
       return state;
   }
