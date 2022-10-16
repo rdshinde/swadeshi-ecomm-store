@@ -6,7 +6,6 @@ import { useAuth, useProducts } from "../../contexts";
 import { Product } from "../../contexts/products/ProductsTypesDeclaration";
 
 export const WishlistPage = () => {
-  const [wishlistProducts, setWishlistProducts] = useState<Product[]>([]);
 
   const {
     userAuthState: { isUserLoggedIn },
@@ -16,9 +15,6 @@ export const WishlistPage = () => {
     productState: { wishlist },
   } = useProducts();
 
-  useEffect(() => {
-    setWishlistProducts([...wishlist.products]);
-  }, [wishlist, isUserLoggedIn]);
 
   return (
     <>
@@ -30,7 +26,7 @@ export const WishlistPage = () => {
         <div
           className={`${styles.wishlist__items_container} flex-center wrap-items`}
         >
-          {wishlistProducts?.map((item: Product) => (
+          {wishlist.products?.map((item: Product) => (
             <WishlistItem itemData={item} />
           ))}
           {!wishlist?.qty ? (
