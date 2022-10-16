@@ -56,16 +56,18 @@ export const ProductsProvider = ({ children }: Props): JSX.Element => {
           type: ProductsActions.ADD_ALL_PRODUCTS,
           payload: serverResponse.data.products,
         });
-      } else if (serverResponse.data?.cart?.qty) {
+      } else if (serverResponse.data?.cart) {
         productsDispatch({
           type: ProductsActions.SET_CART_PRODUCTS,
           payload: serverResponse.data.cart,
         });
+        console.log(serverResponse.data.cart);
+
         productsDispatch({
           type: ProductsActions.UPDATE_PRODUCTS_IN_CART,
           payload: serverResponse.data.cart.products,
         });
-      } else if (serverResponse.data?.wishlist?.qty) {
+      } else if (serverResponse.data?.wishlist) {
         productsDispatch({
           type: ProductsActions.SET_WISHLIST_PRODUCTS,
           payload: serverResponse.data.wishlist,

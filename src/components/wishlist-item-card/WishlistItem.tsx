@@ -1,8 +1,9 @@
 import React from "react";
+import styles from './wishlist-item-card.module.css';
 import { Link } from "react-router-dom";
 import { useProducts } from "../../contexts";
 import { Product } from "../../contexts/products/ProductsTypesDeclaration";
-import { removeFromWishlist } from "../../utils";
+import { removeFromWishlist, moveToCart } from "../../utils";
 import { Price } from "../card-components/Price";
 import { Ratings } from "../card-components/Ratings";
 import { DeliveryType } from "../delivery-type/DeliveryType";
@@ -18,15 +19,16 @@ export const WishlistItem = ({ itemData }: { itemData: Product }) => {
     rating,
     totalRatings,
     isFastDelivery,
+    
   } = itemData;
-  const { productsApiDispatch } = useProducts();
+  const { productsApiDispatch, productState } = useProducts();
   return (
     <div
-      className="card border-rounded-sm cursor-pointer p-x-md"
+      className={`${styles.card} card border-rounded-sm cursor-pointer p-x-md`}
       description-details="Men Solid Cotton Blend Straight Kurta  (Yellow)"
     >
       <button
-        className="btn card__wishlist text-gray p-sm"
+        className={`${styles.remove_btn} btn card__wishlist text-gray p-sm`}
         onClick={() => removeFromWishlist(_id, productsApiDispatch)}
       >
         <i className="fa-solid fa-trash-can"></i>
@@ -46,7 +48,13 @@ export const WishlistItem = ({ itemData }: { itemData: Product }) => {
       <div className="card__footer text-center gap-sm">
         <button
           className="btn btn-default-outline  border-rounded-md"
-          //   onClick={(e) => moveToCartHandler(e, itemData)}
+          onClick={() =>
+            moveToCart(
+              itemData,
+              productsApiDispatch,
+              productState.cart.products
+            )
+          }
         >
           Move to Cart
         </button>

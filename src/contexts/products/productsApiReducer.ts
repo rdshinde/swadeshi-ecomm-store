@@ -45,7 +45,7 @@ export const productsApiReducer = (
     case ProductsApiActions.UPDATE_CART_PRODUCT_QUANTITY:
       return {
         ...state,
-        apiURL: "/user/cart",
+        apiURL: `/user/cart/${payload.id}`,
         method: "POST",
         postMethodData: {
           action: {

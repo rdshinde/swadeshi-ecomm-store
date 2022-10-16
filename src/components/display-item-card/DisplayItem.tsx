@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link} from "react-router-dom";
 import styles from "./display-item.module.css";
 import { Price, Ratings } from "../index";
@@ -24,7 +24,7 @@ export const DisplayItem = ({ itemData }: { itemData: Product }) => {
     isAddedToCart,
     isWishlisted,
   } = itemData;
-  const { productsApiDispatch } = useProducts();
+  const { productsApiDispatch, productState } = useProducts();
   return (
     <div
       className={`card ${
@@ -38,7 +38,7 @@ export const DisplayItem = ({ itemData }: { itemData: Product }) => {
         className={`btn ${styles.card__wishlist} ${
           isWishlisted ? "text-danger" : "text-gray"
         } p-sm`}
-        onClick={(e) => addToWishlist(itemData, productsApiDispatch)}
+        onClick={(e) => addToWishlist(itemData, productsApiDispatch, productState.wishlist.products)}
       >
         <i className="fa-solid fa-heart"></i>
       </button>

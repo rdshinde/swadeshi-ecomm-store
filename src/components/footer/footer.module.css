@@ -2,3 +2,9 @@
 .footer__links {
   font-size: var(--scale-lg);
 }
+.footer_container{
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}

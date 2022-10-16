@@ -78,6 +78,9 @@
   cursor: default;
   z-index: 7;
 }
-.card__footer a{
+.card__footer a {
   max-width: 85%;
+}
+.card__footer a:hover {
+  text-decoration: none;
 }

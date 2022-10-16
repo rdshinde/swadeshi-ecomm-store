@@ -1,0 +1,18 @@
+.card img {
+  height: 420px !important;
+  width: 220px !important;
+}
+.card {
+  position: relative;
+}
+.card button {
+  width: 100%;
+}
+.remove_btn {
+  max-width: min-content;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1;
+  font-size: var(--scale-md);
+}

@@ -52,7 +52,7 @@ export const productsReducer = (
         if (payload.some((pr: Product) => pr._id == product._id)) {
           return { ...product, isAddedToCart: true };
         } else {
-          return { ...product };
+          return { ...product, isAddedToCart: false };
         }
       });
       return {
@@ -65,7 +65,7 @@ export const productsReducer = (
         if (payload.some((pr: Product) => pr._id == product._id)) {
           return { ...product, isWishlisted: true };
         } else {
-          return { ...product };
+          return { ...product, isWishlisted: false };
         }
       });
       return {

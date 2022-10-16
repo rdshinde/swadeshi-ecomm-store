@@ -5,7 +5,12 @@ import styles from "./cart-item.module.css";
 import { Ratings, Price } from "../index";
 import { Product } from "../../contexts/products/ProductsTypesDeclaration";
 import { useProducts } from "../../contexts";
-import { removeFromCart } from "../../utils";
+import {
+  removeFromCart,
+  moveToWishlist,
+  incrementQuantity,
+  decrementQuantity,
+} from "../../utils";
 
 export const CartItem = ({ itemData }: { itemData: Product }) => {
   const {
@@ -20,7 +25,7 @@ export const CartItem = ({ itemData }: { itemData: Product }) => {
     quantitiesInCart,
     // selectedSize,
   } = itemData;
-  const { productsApiDispatch } = useProducts();
+  const { productsApiDispatch, productState } = useProducts();
   return (
     <section className={`${styles.cart__item} border-rounded-sm`}>
       <div className={`${styles.cart__item_info} flex-center`}>
@@ -37,7 +42,13 @@ export const CartItem = ({ itemData }: { itemData: Product }) => {
           <Price price={{ originalPrice, discountedPrice }} />
           <button
             className="btn btn-secondary m-y-md"
-            // onClick={(e) => moveToWishlistHandler(e, itemData)}
+            onClick={() =>
+              moveToWishlist(
+                itemData,
+                productsApiDispatch,
+                productState.wishlist.products
+              )
+            }
           >
             Move To WishList
           </button>
@@ -49,7 +60,7 @@ export const CartItem = ({ itemData }: { itemData: Product }) => {
             className={`count__delete bg-secondary btn border-rounded-lg ${
               quantitiesInCart <= 1 && "btn-disabled"
             }`}
-            // onClick={(e) => decrementItemQuantity(e, _id)}
+            onClick={() => decrementQuantity(_id, productsApiDispatch)}
             disabled={quantitiesInCart <= 1}
           >
             <i className="fa-solid fa-minus"></i>
@@ -57,13 +68,13 @@ export const CartItem = ({ itemData }: { itemData: Product }) => {
           <div className="count p-sm text-4 bold-lg">{quantitiesInCart}</div>
           <button
             className={`count__add bg-secondary btn border-rounded-lg `}
-            // onClick={(e) => incrementItemQuantity(e, _id)}
+            onClick={() => incrementQuantity(_id, productsApiDispatch)}
           >
             <i className="fa-solid fa-plus"></i>
           </button>
         </div>
         <div className="item__price text-3 bold-lg m-x-xxl">
-          {/* &#8377;{quantitiesInCart * discountedPrice} */}
+          &#8377;{quantitiesInCart * Number(discountedPrice)}
         </div>
         <button
           className="item__delete flex-center btn m-r-lg"

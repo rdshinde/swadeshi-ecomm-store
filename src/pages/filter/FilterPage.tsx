@@ -12,7 +12,7 @@ export const FilterPage = () => {
   const { productState, isLoading } = useProducts();
   const sortedProducts: [] = [];
   return (
-    <div className="main gap-md">
+    <div className={`${styles.main} gap-md`}>
       {isLoading && <Loader />}
       <div
         className={`${styles.aside_wrapper} ${
