@@ -16,6 +16,7 @@ export const addToWishlist = (
   productsApiDispatch: Function,
   wishlistItem: Product[]
 ) => {
+  console.log(item);
   if (wishlistItem.some((wishlistItem) => wishlistItem._id === item._id)) {
     removeFromWishlist(item._id, productsApiDispatch);
   } else {
