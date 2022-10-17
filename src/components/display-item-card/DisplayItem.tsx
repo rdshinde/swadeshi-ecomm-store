@@ -1,10 +1,8 @@
 import React, { useEffect } from "react";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import styles from "./display-item.module.css";
 import { Price, Ratings } from "../index";
-import {
-  Product,
-} from "../../contexts/products/ProductsTypesDeclaration";
+import { Product } from "../../contexts/products/ProductsTypesDeclaration";
 import { useProducts } from "../../contexts";
 import { addToCart, addToWishlist } from "../../utils";
 
@@ -38,13 +36,19 @@ export const DisplayItem = ({ itemData }: { itemData: Product }) => {
         className={`btn ${styles.card__wishlist} ${
           isWishlisted ? "text-danger" : "text-gray"
         } p-sm`}
-        onClick={(e) => addToWishlist(itemData, productsApiDispatch, productState.wishlist.products)}
+        onClick={(e) =>
+          addToWishlist(
+            itemData,
+            productsApiDispatch,
+            productState.wishlist.products
+          )
+        }
       >
         <i className="fa-solid fa-heart"></i>
       </button>
       <div className={`${styles.card__body} m-b-md`}>
         <div className={`${styles.card__img_container} flex-center`}>
-          <Link to={`/products/details`} state={{ ...itemData }}>
+          <Link to={`/products/${_id}`}>
             <img width="180" height="420" src={imgUrl} alt="kurta" />
           </Link>
         </div>
@@ -72,7 +76,6 @@ export const DisplayItem = ({ itemData }: { itemData: Product }) => {
             className={`${styles.footer_btn} btn btn-default-outline  border-rounded-md`}
             to={"/cart"}
           >
-            
             Go to Cart
           </Link>
         ) : (
