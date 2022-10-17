@@ -1,0 +1,86 @@
+/* Stling for card component and card-container */
+.footer_btn {
+  transition: all 0.5s;
+  width: 100%;
+}
+.card__footer {
+  margin-bottom: var(--scale-md);
+}
+.card__wishlist,
+.card__remove {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 6;
+}
+.rating-simple {
+  max-width: max-content;
+}
+.rating {
+  align-items: center;
+  display: flex;
+}
+.card__wishlist,
+.card__remove {
+  font-size: calc(var(--scale-md) + var(--scale-sm));
+}
+
+.card__wishlist:hover,
+.card__remove:hover {
+  color: var(--warning-color);
+}
+
+.display_card::before {
+  align-items: center;
+  background-color: var(--secondary-color);
+  color: var(--gray-color);
+  content: attr(product-details);
+  display: flex;
+  font-size: var(--scale-lg);
+  font-weight: 500;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 30%;
+  justify-content: center;
+  opacity: 0.95;
+  padding: var(--scale-lg) var(--scale-md);
+  position: absolute;
+  transform-origin: 0 0;
+  transform: scaleY(0);
+  transition: all 0.7s cubic-bezier(0.165, 0.84, 0.44, 1) 0.5s;
+  z-index: 6;
+}
+.display_card:hover::before {
+  transform: scaleY(1);
+}
+.card__img_container {
+  padding: var(--scale-sm) var(--scale-xl);
+}
+.card__img_container img {
+  height: 420px !important;
+  width: 180px !important;
+}
+.fast_delivery *:hover {
+  transform: scale(1);
+}
+.out-of-stock::after {
+  position: absolute;
+  inset: 0;
+  background-color: var(--secondary-color);
+  opacity: 0.9;
+  content: "Out Of Stock";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--scale-lg);
+  font-weight: 600;
+  cursor: default;
+  z-index: 7;
+}
+.card__footer a {
+  max-width: 85%;
+}
+.card__footer a:hover {
+  text-decoration: none;
+}

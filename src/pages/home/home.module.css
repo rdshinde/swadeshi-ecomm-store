@@ -1,0 +1,95 @@
+.hero__text {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 95vh;
+  justify-content: center;
+  padding: var(--scale-md);
+  position: relative;
+  width: 94%;
+  margin: auto;
+}
+.hero__text::before {
+  background: url("../../../public/assets/heroBg.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  content: "";
+  inset: 0;
+  opacity: 0.4;
+  position: fixed;
+  z-index: -1;
+}
+.hero__text .hero__btn {
+  font-size: var(--scale-lg);
+  padding: var(--scale-md) var(--scale-lg);
+}
+.categorise_container {
+  height: max-content;
+  width: 100%;
+  margin: auto;
+  padding: auto var(--scale-md);
+  z-index: 2;
+  background-color: var(--secondary-color);
+  max-width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+.categories {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--scale-xxl);
+}
+.category {
+  aspect-ratio: 1/1;
+  position: relative;
+  transition: all 0.2s ease-in;
+  width: 15rem;
+}
+.category::before {
+  border-radius: 50%;
+  content: "";
+  inset: 0;
+  opacity: 0.4;
+  position: absolute;
+  z-index: -1;
+}
+.category_women::before {
+  background: url("https://assetscdn1.paytm.com/images/catalog/product/A/AP/APPNINE-SISTER-LADY788175BDE2F0E3/1562935230928_0..jpg?imwidth=280&impolicy=hq");
+}
+.category_boys::before {
+  background: url("https://ik.imagekit.io/tqp4crltjb5/Swadeshi-images/BoysFestivePartyKurtaandPyjamaSetBlue_1zUvH5ZFH.png?ik-sdk-version=javascript-1.4.3&updatedAt=1647795033955");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.category_mens::before {
+  background: url("https://ik.imagekit.io/tqp4crltjb5/Swadeshi-images/MenKurtaandPyjamaSetCottonBlendPink_gHgze7725.png?ik-sdk-version=javascript-1.4.3&updatedAt=1647795033980");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.category:hover {
+  box-shadow: var(--shadow-color) 0px 5px 15px;
+  transform: scale(1.03);
+}
+@media screen and (max-width: 960px) {
+  .category {
+    width: 9rem;
+  }
+}
+@media screen and (max-width: 550px) {
+  .hero__text {
+    padding: 0;
+  }
+  .hero__text h1 {
+    font-size: var(--scale-lg);
+    line-height: normal;
+  }
+  .hero__text .hero__btn {
+    font-size: var(--scale-md);
+    padding: var(--scale-md);
+  }
+}

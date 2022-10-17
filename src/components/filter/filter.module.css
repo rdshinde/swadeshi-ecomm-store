@@ -1,0 +1,17 @@
+.filter_heading,
+.sort_heading {
+  align-items: center;
+  display: flex;
+}
+.filter_heading button,
+.sort_heading button {
+  margin-left: auto;
+}
+.spced-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.range_input {
+  width: 100%;
+}

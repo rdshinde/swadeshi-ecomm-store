@@ -1,0 +1,37 @@
+.show_pwd {
+  position: absolute;
+  right: var(--scale-xl);
+  top: var(--scale-md);
+}
+.pwd_input {
+  position: relative;
+}
+.login_form {
+  border: 1px solid var(--shadow-color);
+  margin: var(--scale-xl) auto;
+  max-width: 50%;
+}
+.submit_btn {
+  padding: var(--scale-sm) var(--scale-lg);
+}
+@media screen and (max-width: 960px) {
+  .login_form {
+    margin: var(--scale-xxl) var(--scale-md);
+    max-width: 95%;
+  }
+  .login_form .text-1 {
+    font-size: var(--scale-lg);
+  }
+  .show_pwd {
+    right: var(--scale-sm);
+  }
+}
+@media screen and (max-width: 550px) {
+  .submit_btn {
+    padding: var(--scale-sm) var(--scale-md);
+    width: 100%;
+  }
+  .login_form {
+    padding: var(--scale-md);
+  }
+}

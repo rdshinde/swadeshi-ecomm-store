@@ -1,0 +1,9 @@
+.header_container {
+  position: relative;
+  margin-bottom: 6rem;
+}
+@media screen and (max-width: 660px) {
+  .header_container {
+    margin-bottom: 10rem;
+  }
+}
