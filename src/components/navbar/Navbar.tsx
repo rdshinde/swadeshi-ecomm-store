@@ -5,14 +5,36 @@ import {
   AiOutlineLogout,
   FaUserAlt,
 } from "../../services";
-import { NavLink } from "react-router-dom";
-import { useAuth, useProducts } from "../../contexts";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useAuth, useFilter, useProducts } from "../../contexts";
+import { useEffect, useState } from "react";
 const Navbar = () => {
   const {
     productState: { cart, wishlist },
   } = useProducts();
   const { userAuthState, logoutHandler } = useAuth();
   const { isUserLoggedIn } = userAuthState;
+  const [searchText, setSearchText] = useState("");
+  
+  const searchInputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchText(e.target.value);
+  };
+  useEffect(() => {
+    searchHandler();
+  }, [searchText]);
+
+  const navigate = useNavigate();
+  const searchHandler = () => {
+    navigate(`/products`);
+    filterDispatch({ type: "SEARCH_PRODUCTS", payload: searchText });
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      searchHandler();
+    }
+  };
+  const { filterDispatch } = useFilter();
   return (
     <nav className={`${styles.header__nav}`}>
       <div className={`${styles.nav__logo_container}`}>
@@ -27,9 +49,16 @@ const Navbar = () => {
           className="search-input"
           placeholder="ex. Men Kurta"
           type="search"
+          onChange={searchInputHandler}
+          onKeyDown={handleKeyDown}
           id="text-input"
+          value={searchText}
         />
-        <div className={`${styles.search_input__btn} flex-center`}>
+        <div
+          className={`${styles.search_input__btn} flex-center`}
+          role={`button`}
+          onClick={searchHandler}
+        >
           <i className="fas fa-search"></i>
         </div>
       </div>

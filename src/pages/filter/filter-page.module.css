@@ -14,11 +14,15 @@
   position: fixed;
   z-index: 7;
 }
-.aside_container {
-  max-height: 85vh;
+.aside_wrapper {
+  max-height: 90vh;
   overflow-y: auto;
 }
-
+em {
+  font-style: italic;
+  font-weight: 600;
+  color: var(--default-color);
+}
 .main_wrapper {
   grid-area: main;
 }

@@ -1,15 +1,17 @@
 import React from "react";
+import { useFilter } from "../../contexts";
+import { FilterActions } from "../../contexts/filter/filterTypesDeclaration";
 import styles from "./filter.module.css";
 export const Filter = () => {
-  //   const { filterState, filterDispatch } = useFilter();
-  //   const {
-  //     sortBy,
-  //     ratingFilter,
-  //     category,
-  //     priceValue,
-  //     showOutOfStock,
-  //     showFastDelivery,
-  //   } = filterState;
+  const { filterState, filterDispatch } = useFilter();
+  const {
+    showOutOfStock,
+    showFastDelivery,
+    category,
+    ratings,
+    sortBy,
+    priceValue,
+  } = filterState;
   return (
     <aside className="aside-container p-sm">
       <section className={`aside__section ${styles.filter_heading} m-sm p-sm`}>
@@ -18,13 +20,11 @@ export const Filter = () => {
         </h2>
         <button
           className="btn btn-link"
-          //   onClick={(e) => {
-          //     e.stopPropagation();
-          //     filterDispatch({
-          //       type: "FILTER",
-          //       payload: "CLEAR_ALL_FILTERS",
-          //     });
-          //   }}
+          onClick={() => {
+            filterDispatch({
+              type: FilterActions.CLEAR_ALL_FILTERS,
+            });
+          }}
         >
           Clear Filters
         </button>
@@ -35,13 +35,11 @@ export const Filter = () => {
           <h3 className="bold-lg text-gray text-4">Sort By</h3>
           <button
             className="btn btn-link"
-            // onClick={(e) => {
-            //   e.stopPropagation();
-            //   filterDispatch({
-            //     type: "FILTER",
-            //     payload: "CLEAR_SORT",
-            //   });
-            // }}
+            onClick={() => {
+              filterDispatch({
+                type: FilterActions.CLEAE_SORT_FILTER,
+              });
+            }}
           >
             Clear
           </button>
@@ -53,10 +51,12 @@ export const Filter = () => {
                 id="popular"
                 name="sort-by"
                 type="radio"
-                // onChange={() =>
-                //   filterDispatch({ type: "SORT", payload: "POPULAR_PRODUCTS" })
-                // }
-                // checked={sortBy && sortBy === "POPULAR_PRODUCTS"}
+                onChange={() =>
+                  filterDispatch({
+                    type: FilterActions.SORT_POPULAR_PRODUCTS,
+                  })
+                }
+                checked={sortBy && sortBy === "POPULAR_PRODUCTS"}
               />
               Popular
             </label>
@@ -67,10 +67,12 @@ export const Filter = () => {
                 id="low-to-high"
                 name="sort-by"
                 type="radio"
-                // onChange={() =>
-                //   filterDispatch({ type: "SORT", payload: "LOW_TO_HIGH" })
-                // }
-                // checked={sortBy && sortBy === "LOW_TO_HIGH"}
+                onChange={() =>
+                  filterDispatch({
+                    type: FilterActions.SORT_BY_PRICE_LOW_TO_HIGH,
+                  })
+                }
+                checked={sortBy && sortBy === "PRICE_LOW_TO_HIGH"}
               />
               Price Low to High
             </label>
@@ -81,10 +83,12 @@ export const Filter = () => {
                 id="high-to-low"
                 name="sort-by"
                 type="radio"
-                // onChange={() =>
-                //   filterDispatch({ type: "SORT", payload: "HIGH_TO_LOW" })
-                // }
-                // checked={sortBy && sortBy === "HIGH_TO_LOW"}
+                onChange={() =>
+                  filterDispatch({
+                    type: FilterActions.SORT_BY_PRICE_HIGH_TO_LOW,
+                  })
+                }
+                checked={sortBy && sortBy === "PRICE_HIGH_TO_LOW"}
               />
               Price High to Low
             </label>
@@ -96,13 +100,11 @@ export const Filter = () => {
           <h3 className="bold-lg text-gray text-4">Price</h3>
           <button
             className="btn btn-link"
-            // onClick={(e) => {
-            //   e.stopPropagation();
-            //   filterDispatch({
-            //     type: "FILTER",
-            //     payload: "CLEAR_PRICE_FILTER",
-            //   });
-            // }}
+            onClick={(e) => {
+              filterDispatch({
+                type: FilterActions.CLEAR_PRICE_FILTER,
+              });
+            }}
           >
             Clear
           </button>
@@ -116,14 +118,13 @@ export const Filter = () => {
               list="price-slider"
               step="100"
               className={styles.range_input}
-              //   onChange={(e) =>
-              //     filterDispatch({
-              //       type: "SORT",
-              //       payload: "PRICE_SLIDER",
-              //       value: e.target.value,
-              //     })
-              //   }
-              //   value={priceValue}
+              onChange={(e) =>
+                filterDispatch({
+                  type: FilterActions.FILER_BY_PRICE_RANGE,
+                  payload: e.target.value,
+                })
+              }
+              value={priceValue}
             />
             <datalist
               id="price-slider"
@@ -146,13 +147,11 @@ export const Filter = () => {
           <h3 className="bold-lg text-gray text-4">Delivery</h3>
           <button
             className="btn btn-link"
-            // onClick={(e) => {
-            //   e.stopPropagation();
-            //   filterDispatch({
-            //     type: "FILTER",
-            //     payload: "CLEAR_DELIVERY_FILTER",
-            //   });
-            // }}
+            onClick={() => {
+              filterDispatch({
+                type: FilterActions.CLEAR_DELIVERY_FILTER,
+              });
+            }}
           >
             Clear
           </button>
@@ -164,10 +163,10 @@ export const Filter = () => {
                 id="out-of-stock"
                 name="out-of-stock"
                 type="checkbox"
-                // onChange={() =>
-                //   filterDispatch({ type: "FILTER", payload: "OUT_OF_STOCK" })
-                // }
-                // checked={showOutOfStock}
+                onChange={(e) =>
+                  filterDispatch({ type: FilterActions.OUT_OF_STOCK })
+                }
+                checked={showOutOfStock}
               />
               Include Out Of Stock
             </label>
@@ -178,10 +177,10 @@ export const Filter = () => {
                 id="fast-delivery"
                 name="fast-delivery"
                 type="checkbox"
-                // onChange={() =>
-                //   filterDispatch({ type: "FILTER", payload: "FAST_DELIVERY" })
-                // }
-                // checked={showFastDelivery}
+                onChange={() =>
+                  filterDispatch({ type: FilterActions.FAST_DELIVERY })
+                }
+                checked={showFastDelivery}
               />
               Fast Delivery
             </label>
@@ -193,10 +192,9 @@ export const Filter = () => {
           <h3 className="bold-lg text-gray text-4">Categories</h3>
           <button
             className="btn btn-link"
-            // onClick={(e) => {
-            //   e.stopPropagation();
-            //   filterDispatch({ type: "FILTER", payload: "CLEAR_CATEGORY" });
-            // }}
+            onClick={() => {
+              filterDispatch({ type: FilterActions.CLEAR_CATEGORY_FILTER });
+            }}
           >
             Clear
           </button>
@@ -214,13 +212,13 @@ export const Filter = () => {
                     id="popular"
                     name="category"
                     type="radio"
-                    // onChange={() =>
-                    //   filterDispatch({
-                    //     type: "FILTER",
-                    //     payload: `SHOW_${categoryName}`,
-                    //   })
-                    // }
-                    // checked={category && category === categoryName}
+                    onChange={() =>
+                      filterDispatch({
+                        type: "SET_CATEGORY_FILTER",
+                        payload: `${categoryName}`,
+                      })
+                    }
+                    checked={category && category === categoryName}
                   />
                   {displayName}
                 </label>
@@ -234,24 +232,22 @@ export const Filter = () => {
           <h3 className="bold-lg text-gray text-4">Ratings</h3>
           <button
             className="btn btn-link"
-            // onClick={(e) => {
-            //   e.stopPropagation();
-            //   filterDispatch({
-            //     type: "FILTER",
-            //     payload: "CLEAR_RATING_FILTER",
-            //   });
-            // }}
+            onClick={() => {
+              filterDispatch({
+                type: FilterActions.CLEAR_RATING_FILTER,
+              });
+            }}
           >
             Clear
           </button>
         </div>
         <div className="sort-btns">
           {[
-            { ratingNum: 1, rating: "ONE" },
-            { ratingNum: 2, rating: "TWO" },
-            { ratingNum: 3, rating: "THREE" },
-            { ratingNum: 4, rating: "FOUR" },
-          ].map(({ ratingNum, rating }) => {
+            { ratingNum: 1 },
+            { ratingNum: 2 },
+            { ratingNum: 3 },
+            { ratingNum: 4 },
+          ].map(({ ratingNum }) => {
             return (
               <div className="input-group">
                 <label htmlFor="popular">
@@ -259,16 +255,13 @@ export const Filter = () => {
                     id="popular"
                     name="rating"
                     type="radio"
-                    // onChange={() =>
-                    //   filterDispatch({
-                    //     type: "FILTER",
-                    //     payload: `RATING_MORE_THAN_${rating}`,
-                    //   })
-                    // }
-                    // checked={
-                    //   ratingFilter &&
-                    //   ratingFilter === `RATING_MORE_THAN_${rating}`
-                    // }
+                    onChange={() =>
+                      filterDispatch({
+                        type: FilterActions.SET_RATING_FILTER,
+                        payload: ratingNum,
+                      })
+                    }
+                    checked={ratings && ratings === ratingNum}
                   />
                   {ratingNum} Stars and Above
                 </label>
