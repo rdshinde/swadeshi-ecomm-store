@@ -61,7 +61,7 @@ export const useFetch = (
   if (encodedToken) {
     token = encodedToken;
   }
-  const API: string = `https://swadeshi-ecomm.herokuapp.com` + apiURL;
+  const API: string = `https://swadeshi-backend.vercel.app` + apiURL;
   const getData = async (): Promise<any> => {
     try {
       apiDataDispatch({ type: ApiDataActions.SET_LOADING, payload: true });
